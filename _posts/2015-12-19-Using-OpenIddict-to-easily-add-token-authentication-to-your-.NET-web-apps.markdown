@@ -42,6 +42,24 @@ So, fire up `Command Prompt` and type in:
 
 You should see something similar to this:
 
+![2015-12-19 21_01_43-C__WINDOWS_system32_cmd.exe - dnvm  upgrade -u.png]({{site.baseurl}}/media/2015-12-19 21_01_43-C__WINDOWS_system32_cmd.exe - dnvm  upgrade -u.png)
+
+Great, now your system has the latest builds.
+
+Now, you're going to need to pull the latest and greatest packages into your project, so you'll need to create a custom `NuGet.config` file and put it in the same folder as your solution file, and you're going to need it to look like this:
+
+	<?xml version="1.0" encoding="utf-8"?>
+	<configuration>
+	  <packageSources>
+		<add key="aspnet-contrib" value="https://www.myget.org/F/aspnet-contrib/api/v2" />
+		<add key="AspNetVNext" value="https://www.myget.org/F/aspnetvnext/api/v2" />
+		<add key="WebStack Nightly" value="http://www.myget.org/f/aspnetwebstacknightly/" />
+		<add key="AzureAd Nightly" value="http://www.myget.org/F/azureadwebstacknightly/" />
+		<add key="Roslyn" value="https://www.myget.org/F/roslyn-nightly" />
+		<add key="DotNetCore" value="https://www.myget.org/F/dotnet-core/" />
+		<add key="NuGet" value="https://api.nuget.org/v3/index.json" />
+	  </packageSources>
+	</configuration>
 
 Lovely. So far, so Microsoft. Now let's start adding the *OpenIddict* stuff.
 
