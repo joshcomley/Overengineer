@@ -3,7 +3,7 @@ layout: blog
 category: blog
 title: Using OpenIddict to easily add token authentication to your .NET web apps
 date: "2015-12-19 20:33"
-published: false
+published: true
 splash: ""
 tags: 
   - "null"
