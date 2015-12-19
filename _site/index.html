@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     
-    <meta name="description" content="Really cool blog about ... something">
+    <meta name="description" content="Things and bits and stuff">
     <title>the overengineer</title>
     <link rel="canonical" href="/index.html">
     <link href="/main.css" rel="stylesheet" type="text/css">
@@ -27,6 +27,118 @@
     </header>
     
     
+    
+    <article>
+      <header>
+        <h2><a href="/2015/12/19/Using-OpenIddict-to-easily-add-token-authentication-to-your-.NET-web-apps.html">Using OpenIddict to easily add token authentication to your .NET web apps</a></h2>
+        <p><time datetime="2015-12-19T18:40:41+01:00">Dec 19, 2015</time> • </p>
+      </header>
+      <div>
+<p>You’ll find this post in your.. <code>_posts</code> directory - edit this post and re-build (or run with the <code>-w</code> switch) to see your changes!
+To add new posts, simply add a file in the <code>_posts</code> directory that follows the convention: YYYY-MM-DD-name-of-post.ext.</p>
+
+<p>Jekyll also offers powerful support for code snippets:</p>
+
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="sr">//</span> <span class="no">POST</span> <span class="n">api</span><span class="o">/</span><span class="no">Account</span><span class="o">/</span><span class="no">RegisterExternalToken</span>
+<span class="o">[</span><span class="no">OverrideAuthentication</span><span class="o">]</span>
+<span class="o">[</span><span class="no">AllowAnonymous</span><span class="o">]</span>
+<span class="o">[</span><span class="no">Route</span><span class="p">(</span><span class="s2">&quot;RegisterExternalToken&quot;</span><span class="p">)</span><span class="o">]</span>
+<span class="kp">public</span> <span class="n">async</span> <span class="no">Task</span><span class="o">&lt;</span><span class="no">IHttpActionResult</span><span class="o">&gt;</span> <span class="no">RegisterExternalToken</span><span class="p">(</span><span class="no">RegisterExternalTokenBindingModel</span> <span class="n">model</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="no">ModelState</span><span class="o">.</span><span class="n">IsValid</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="no">BadRequest</span><span class="p">(</span><span class="no">ModelState</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="n">var</span> <span class="n">externalLogin</span> <span class="o">=</span> <span class="n">await</span> <span class="no">Brandless</span><span class="o">.</span><span class="n">OAuth</span><span class="o">.</span><span class="n">Tokens</span><span class="o">.</span><span class="n">ExternalLoginData</span><span class="o">.</span><span class="n">FromToken</span><span class="p">(</span>
+		<span class="n">model</span><span class="o">.</span><span class="n">Provider</span><span class="p">,</span> 
+		<span class="n">model</span><span class="o">.</span><span class="n">Token</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">externalLogin</span> <span class="o">==</span> <span class="n">null</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="k">return</span> <span class="no">InternalServerError</span><span class="p">();</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">externalLogin</span><span class="o">.</span><span class="n">LoginProvider</span> <span class="o">!=</span> <span class="n">model</span><span class="o">.</span><span class="n">Provider</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="no">Authentication</span><span class="o">.</span><span class="n">SignOut</span><span class="p">(</span><span class="no">DefaultAuthenticationTypes</span><span class="o">.</span><span class="n">ExternalCookie</span><span class="p">);</span>
+		<span class="k">return</span> <span class="no">InternalServerError</span><span class="p">();</span>
+	<span class="p">}</span>
+
+	<span class="n">var</span> <span class="n">user</span> <span class="o">=</span> <span class="n">await</span> <span class="no">UserManager</span><span class="o">.</span><span class="n">FindAsync</span><span class="p">(</span><span class="kp">new</span> <span class="no">UserLoginInfo</span><span class="p">(</span><span class="n">externalLogin</span><span class="o">.</span><span class="n">LoginProvider</span><span class="p">,</span>
+		<span class="n">externalLogin</span><span class="o">.</span><span class="n">ProviderKey</span><span class="p">));</span>
+
+	<span class="n">var</span> <span class="n">hasRegistered</span> <span class="o">=</span> <span class="n">user</span> <span class="o">!=</span> <span class="n">null</span><span class="p">;</span>
+	<span class="no">ClaimsIdentity</span> <span class="n">identity</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="n">hasRegistered</span><span class="p">)</span>
+	<span class="p">{</span>
+		<span class="n">identity</span> <span class="o">=</span> <span class="n">await</span> <span class="no">UserManager</span><span class="o">.</span><span class="n">CreateIdentityAsync</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="no">OAuthDefaults</span><span class="o">.</span><span class="n">AuthenticationType</span><span class="p">);</span>
+		<span class="no">IEnumerable</span><span class="o">&lt;</span><span class="no">Claim</span><span class="o">&gt;</span> <span class="n">claims</span> <span class="o">=</span> <span class="n">externalLogin</span><span class="o">.</span><span class="n">GetClaims</span><span class="p">();</span>
+		<span class="n">identity</span><span class="o">.</span><span class="n">AddClaims</span><span class="p">(</span><span class="n">claims</span><span class="p">);</span>
+		<span class="no">Authentication</span><span class="o">.</span><span class="n">SignIn</span><span class="p">(</span><span class="n">identity</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">else</span>
+	<span class="p">{</span>
+		<span class="n">user</span> <span class="o">=</span> <span class="kp">new</span> <span class="no">ApplicationUser</span>
+		<span class="p">{</span>
+			<span class="no">Id</span> <span class="o">=</span> <span class="no">Guid</span><span class="o">.</span><span class="n">NewGuid</span><span class="p">()</span><span class="o">.</span><span class="n">ToString</span><span class="p">(),</span>
+			<span class="no">UserName</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Email</span><span class="p">,</span>
+			<span class="no">Email</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Email</span>
+		<span class="p">};</span>
+
+		<span class="n">var</span> <span class="n">result</span> <span class="o">=</span> <span class="n">await</span> <span class="no">UserManager</span><span class="o">.</span><span class="n">CreateAsync</span><span class="p">(</span><span class="n">user</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="o">.</span><span class="n">Succeeded</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">return</span> <span class="no">GetErrorResult</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+		<span class="p">}</span>
+
+		<span class="n">var</span> <span class="n">info</span> <span class="o">=</span> <span class="kp">new</span> <span class="no">ExternalLoginInfo</span>
+		<span class="p">{</span>
+			<span class="no">DefaultUserName</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Email</span><span class="p">,</span>
+			<span class="no">Login</span> <span class="o">=</span> <span class="kp">new</span> <span class="no">UserLoginInfo</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">Provider</span><span class="p">,</span> <span class="n">externalLogin</span><span class="o">.</span><span class="n">ProviderKey</span><span class="p">)</span>
+		<span class="p">};</span>
+
+		<span class="n">result</span> <span class="o">=</span> <span class="n">await</span> <span class="no">UserManager</span><span class="o">.</span><span class="n">AddLoginAsync</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">Id</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">Login</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">result</span><span class="o">.</span><span class="n">Succeeded</span><span class="p">)</span>
+		<span class="p">{</span>
+			<span class="k">return</span> <span class="no">GetErrorResult</span><span class="p">(</span><span class="n">result</span><span class="p">);</span>
+		<span class="p">}</span>
+
+		<span class="n">identity</span> <span class="o">=</span> <span class="n">await</span> <span class="no">UserManager</span><span class="o">.</span><span class="n">CreateIdentityAsync</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="no">OAuthDefaults</span><span class="o">.</span><span class="n">AuthenticationType</span><span class="p">);</span>
+		<span class="no">IEnumerable</span><span class="o">&lt;</span><span class="no">Claim</span><span class="o">&gt;</span> <span class="n">claims</span> <span class="o">=</span> <span class="n">externalLogin</span><span class="o">.</span><span class="n">GetClaims</span><span class="p">();</span>
+		<span class="n">identity</span><span class="o">.</span><span class="n">AddClaims</span><span class="p">(</span><span class="n">claims</span><span class="p">);</span>
+		<span class="no">Authentication</span><span class="o">.</span><span class="n">SignIn</span><span class="p">(</span><span class="n">identity</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="n">var</span> <span class="n">ticket</span> <span class="o">=</span> <span class="kp">new</span> <span class="no">AuthenticationTicket</span><span class="p">(</span><span class="n">identity</span><span class="p">,</span> <span class="kp">new</span> <span class="no">AuthenticationProperties</span><span class="p">());</span>
+	<span class="n">var</span> <span class="n">currentUtc</span> <span class="o">=</span> <span class="kp">new</span> <span class="no">SystemClock</span><span class="p">()</span><span class="o">.</span><span class="n">UtcNow</span><span class="p">;</span>
+	<span class="n">ticket</span><span class="o">.</span><span class="n">Properties</span><span class="o">.</span><span class="n">IssuedUtc</span> <span class="o">=</span> <span class="n">currentUtc</span><span class="p">;</span>
+	<span class="n">ticket</span><span class="o">.</span><span class="n">Properties</span><span class="o">.</span><span class="n">ExpiresUtc</span> <span class="o">=</span> <span class="n">currentUtc</span><span class="o">.</span><span class="n">Add</span><span class="p">(</span><span class="no">TimeSpan</span><span class="o">.</span><span class="n">FromDays</span><span class="p">(</span><span class="mi">365</span><span class="p">));</span>
+	<span class="n">var</span> <span class="n">accessToken</span> <span class="o">=</span> <span class="no">Startup</span><span class="o">.</span><span class="n">OAuthOptions</span><span class="o">.</span><span class="n">AccessTokenFormat</span><span class="o">.</span><span class="n">Protect</span><span class="p">(</span><span class="n">ticket</span><span class="p">);</span>
+	<span class="no">Request</span><span class="o">.</span><span class="n">Headers</span><span class="o">.</span><span class="n">Authorization</span> <span class="o">=</span> <span class="kp">new</span> <span class="no">AuthenticationHeaderValue</span><span class="p">(</span><span class="s2">&quot;Bearer&quot;</span><span class="p">,</span> <span class="n">accessToken</span><span class="p">);</span>
+
+	<span class="sr">//</span> <span class="no">Create</span> <span class="n">the</span> <span class="n">response</span> <span class="n">building</span> <span class="n">a</span> <span class="no">JSON</span> <span class="n">object</span> <span class="n">that</span> <span class="n">mimics</span> <span class="n">exactly</span> <span class="n">the</span> <span class="n">one</span> <span class="n">issued</span> <span class="n">by</span> <span class="n">the</span> <span class="n">default</span> <span class="sr">/Token endpoint</span>
+<span class="sr">	var token = new JObject(</span>
+<span class="sr">		new JProperty(&quot;userName&quot;, user.UserName),</span>
+<span class="sr">		new JProperty(&quot;id&quot;, user.Id),</span>
+<span class="sr">		new JProperty(&quot;access_token&quot;, accessToken),</span>
+<span class="sr">		new JProperty(&quot;token_type&quot;, &quot;bearer&quot;),</span>
+<span class="sr">		new JProperty(&quot;expires_in&quot;, TimeSpan.FromDays(365).TotalSeconds.ToString()),</span>
+<span class="sr">		new JProperty(&quot;.issued&quot;, currentUtc.ToString(&quot;ddd, dd MMM yyyy HH&#39;:&#39;mm&#39;:&#39;ss &#39;GMT&#39;&quot;)),</span>
+<span class="sr">		new JProperty(&quot;.expires&quot;, currentUtc.Add(TimeSpan.FromDays(365)).ToString(&quot;ddd, dd MMM yyyy HH:mm:ss &#39;GMT&#39;&quot;))</span>
+<span class="sr">	);</span>
+<span class="sr">	return Ok(token);</span>
+<span class="sr">}</span></code></pre></div>
+
+<p>Check out the <a href="http://jekyllrb.com">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/mojombo/jekyll">Jekyll’s GitHub repo</a>.</p>
+
+
+      </div>
+      <footer>
+        <p><a href="/2015/12/19/Using-OpenIddict-to-easily-add-token-authentication-to-your-.NET-web-apps.html">read more &raquo;</a></p>
+      </footer>
+    </article>
     
     <article>
       <header>
