@@ -34,6 +34,15 @@ Hit `Ctrl+F5` and you should see your new app running smoothly:
 
 ![2015-12-19 20_50_10-Home Page - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-19 20_50_10-Home Page - AuthorisationServer ‎- Microsoft Edge.png)
 
+Now, before we go any further, at the time of typing *OpenIddict* uses the latest nightly builds of ASP.NET. As such we need to update our own code to use the nightly builds.
+
+So, fire up `Command Prompt` and type in:
+
+`dnvm upgrade -u`
+
+You should see something similar to this:
+
+
 Lovely. So far, so Microsoft. Now let's start adding the *OpenIddict* stuff.
 
 
