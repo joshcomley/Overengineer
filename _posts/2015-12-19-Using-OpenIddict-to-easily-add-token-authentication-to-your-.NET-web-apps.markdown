@@ -1,6 +1,6 @@
 ---
 title: Using OpenIddict to easily add token authentication to your .NET web apps
-date: {}
+date: 2015-12-19T00:00:00.000Z
 published: true
 ---
 
