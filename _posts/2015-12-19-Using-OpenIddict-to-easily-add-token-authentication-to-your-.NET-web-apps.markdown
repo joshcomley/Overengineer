@@ -46,7 +46,7 @@ You should see something similar to this:
 
 Great, now your system has the latest builds.
 
-Now, you're going to need to pull the latest and greatest packages into your project, so you'll need to create a custom `NuGet.config` file and put it in the same folder as your solution file, and you're going to need it to look like this:
+Now, you're going to need to pull the latest and "greatest" nightly nuget packages into your project, so you'll need to create a custom `NuGet.config` file and put it in the *same folder as your solution file*:
 
 {% highlight xml %}
 <?xml version="1.0" encoding="utf-8"?>
@@ -63,7 +63,32 @@ Now, you're going to need to pull the latest and greatest packages into your pro
 </configuration>
 {% endhighlight %}
 
+Now you'll need to refresh your packages to the latest version using this new `NuGet.config`, so open up `Command Prompt` *at the folder that contains your authentication project's solution file* and type:
+
+`dnu restore --no-cache`
+
+(Note: we're doing the `no-cache` option just to be on the safe side)
+
+You should see some lovely things like this happening:
+
+![2015-12-19 21_16_49-C__Windows_System32_cmd.exe - dnu  restore --no-cache.png]({{site.baseurl}}/media/2015-12-19 21_16_49-C__Windows_System32_cmd.exe - dnu  restore --no-cache.png)
+
 Lovely. So far, so Microsoft. Now let's start adding the *OpenIddict* stuff.
 
+Now, as it stands, your authentication project probably still has RC1 references:
+
+![2015-12-19 21_20_23-OneNote.png]({{site.baseurl}}/media/2015-12-19 21_20_23-OneNote.png)
+
+In `Visual Studio`, open up your project's properties and in the `Application` tab, change `Solution DNX SDK version` to `RC2`:
+
+![2015-12-19 21_23_02-.png]({{site.baseurl}}/media/2015-12-19 21_23_02-.png)
+
+Next up, open up your `project.json` and find and replace all occurences of `-rc1-final` with `-rc2-*`:
+
+![2015-12-19 21_28_40-AuthorisationServer - Microsoft Visual Studio (Administrator).png]({{site.baseurl}}/media/2015-12-19 21_28_40-AuthorisationServer - Microsoft Visual Studio (Administrator).png)
+
+As soon as you save, it'll start downloading the new packages:
+
+![2015-12-19 21_30_57-OneNote.png]({{site.baseurl}}/media/2015-12-19 21_30_57-OneNote.png)
 
 
