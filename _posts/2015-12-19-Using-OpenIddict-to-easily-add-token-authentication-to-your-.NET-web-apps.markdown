@@ -91,4 +91,11 @@ As soon as you save, it'll start downloading the new packages:
 
 ![2015-12-19 21_30_57-OneNote.png]({{site.baseurl}}/media/2015-12-19 21_30_57-OneNote.png)
 
+![2015-12-19 21_32_36-AuthorisationServer - Microsoft Visual Studio (Administrator).png]({{site.baseurl}}/media/2015-12-19 21_32_36-AuthorisationServer - Microsoft Visual Studio (Administrator).png)
+
+When it's done, you should have all new `RC2` references:
+
+![2015-12-19 21_33_15-OneNote.png]({{site.baseurl}}/media/2015-12-19 21_33_15-OneNote.png)
+
+
 
