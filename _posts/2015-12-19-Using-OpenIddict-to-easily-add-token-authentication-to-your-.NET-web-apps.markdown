@@ -1,13 +1,21 @@
 ---
+layout: blog
+category: blog
 title: Using OpenIddict to easily add token authentication to your .NET web apps
 date: 2015-12-19T00:00:00.000Z
 published: true
+splash: ""
+tags: null
 ---
+
 
 
 
 You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!
 To add new posts, simply add a file in the `_posts` directory that follows the convention: YYYY-MM-DD-name-of-post.ext.
+
+![2015-10-20 07_47_02-Photos.png]({{site.baseurl}}/media/2015-10-20 07_47_02-Photos.png)
+
 
 Jekyll also offers powerful support for code snippets
 
