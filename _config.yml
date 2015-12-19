@@ -7,8 +7,6 @@ more: "read more"
 comments:
     disqus: "overengineer"
 #    isso: "comments.mysite.org"
-
-permalink: pretty
 style:
 #    body: "whitesmoke"
     padding: 33%
