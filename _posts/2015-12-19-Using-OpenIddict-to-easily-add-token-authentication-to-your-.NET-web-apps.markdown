@@ -2,11 +2,10 @@
 layout: blog
 category: blog
 title: Using OpenIddict to easily add token authentication to your .NET web apps
-date: {}
+date: "2015-12-19 20:33"
 published: false
 splash: ""
-tags: 
-  - "null"
+tags: null
 ---
 
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
