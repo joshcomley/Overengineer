@@ -3,6 +3,7 @@ author: "Blog Author"
 description: "Things and bits and stuff"
 #subheading: "Really cool blog about ... something"
 more: "read more"
+permalink: /:title
 
 comments:
     disqus: "overengineer"
