@@ -1,4 +1,36 @@
+title: "the overengineer"
+author: "Blog Author"
+description: "Things and bits and stuff"
+#subheading: "Really cool blog about ... something"
+more: "read more"
+
+comments:
+    disqus: "overengineer"
+#    isso: "comments.mysite.org"
+
 permalink: pretty
+style:
+#    body: "whitesmoke"
+    padding: 33%
+    anchor: "#46f"
+    serif-heading: true
+    nav: "#181818"
+#    headline: "#06f"
+    description: "white"
+    article:
+        odd: "#ffffff"
+        even: "#222222"
+
+links:
+  - github: "https://github.com/me/"
+  - twitter: "https://twitter.com/me/"
+  - google-plus: "https://plus.google.com/+me"
+  - reddit: "https://www.reddit.com/user/me/"
+  - youtube: "https://www.youtube.com/user/me"
+  - steam: "http://steamcommunity.com/id/me/"
+
+excerpt_separator: "\n\n\n"
+defaults: [{scope: {path: ""}, values: {layout: "default"}}, {scope: {path: "", type: "posts"}, values: {comments: true}}]
 markdown: rdiscount
 prose:
   rooturl: '_posts'
