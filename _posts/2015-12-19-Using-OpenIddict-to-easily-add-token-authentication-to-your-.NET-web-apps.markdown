@@ -46,7 +46,7 @@ You should see something similar to this:
 
 Great, now your system has the latest builds.
 
-Now, you're going to need to pull the latest and greatest packages into your project, so you'll need to create a custom `NuGet.config` file and put it in the same folder as your solution file, and you're going to need it to look like this:
+Now, you're going to need to pull the latest and greatest packages into your project, so you'll need to create a custom `NuGet.config` file and put it in the same folder as your solution file, and you're going to need it to look like this
 
 {% highlight xml %}
 	<?xml version="1.0" encoding="utf-8"?>
