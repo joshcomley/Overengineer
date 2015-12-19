@@ -10,6 +10,9 @@ comments:
     disqus: "overengineer"
 #    isso: "comments.mysite.org"
 
+prose:
+  siteurl: "http://overengineer.net"
+  
 style:
 #    body: "whitesmoke"
     padding: 33%
