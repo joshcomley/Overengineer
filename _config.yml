@@ -12,7 +12,7 @@ comments:
 
 prose:
     rooturl: "_posts"
-    siteurl: "http://overengineer.net"
+    siteurl: "http://overengineer.net/"
   
 style:
 #    body: "whitesmoke"
