@@ -3,19 +3,15 @@ author: "Blog Author"
 description: "Things and bits and stuff"
 #subheading: "Really cool blog about ... something"
 more: "read more"
-permalink: /:title
 
 comments:
     disqus: "overengineer"
-#    isso: "comments.mysite.org"
 
 style:
-#    body: "whitesmoke"
     padding: 33%
     anchor: "#46f"
     serif-heading: true
     nav: "#181818"
-#    headline: "#06f"
     description: "white"
     article:
         odd: "#ffffff"
