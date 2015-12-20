@@ -216,3 +216,29 @@ else
     </div>
 }
 {% endhighlight %}
+
+Now add the following methods to the controller for the above cshtml file:
+
+{% highlight c# %}
+public IActionResult SignIn()
+{
+    return new ChallengeResult(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties
+    {
+        RedirectUri = "/"
+    });
+}
+
+[HttpGet("~/signout"), HttpPost("~/signout")]
+public async Task SignOut()
+{
+    // Instruct the cookies middleware to delete the local cookie created when the user agent
+    // is redirected from the identity provider after a successful authorization flow.
+    await HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+    // Instruct the OpenID Connect middleware to redirect the user agent to the identity provider to sign out.
+    await HttpContext.Authentication.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+}
+{% endhighlight %}
+
+The `SignOut()` method above can be in any controller, because we've mapped a specific route, which is the relative route `~/signout` to always go to this action.
+
