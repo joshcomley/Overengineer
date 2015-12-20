@@ -2,8 +2,9 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: Updating a Visual Studio 2015 template ASP.NET 5 web application from RC1 to RC2
 ---
 
