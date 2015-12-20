@@ -11,6 +11,7 @@ tags:
 
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -92,3 +93,30 @@ This code will create the endpoints necessary to receive authentication requests
 You will now modify your client app so that it will send requests to these endpoints when it wants to sort things out like logging in, logging out, er, logging back in again and so on.
 
 # Client
+The client app is a little more involved.
+
+First up, `File -> New project` yourself an `ASP.NET 5 web application`:
+
+![2015-12-20 13_38_13-New Project.png]({{site.baseurl}}/media/2015-12-20 13_38_13-New Project.png)
+
+This time, however, make sure you click `Change authentication` and then select `No authentication`:
+
+![2015-12-20 13_40_10-Change Authentication.png]({{site.baseurl}}/media/2015-12-20 13_40_10-Change Authentication.png)
+
+![2015-12-20 13_41_32-New ASP.NET Project - OpenIddictClient.png]({{site.baseurl}}/media/2015-12-20 13_41_32-New ASP.NET Project - OpenIddictClient.png)
+
+We don't need the authentication code, because we'll be "out sourcing" that to our `OpenIddict` authentication server.
+
+## project.json
+Once you've got your project up in Visual Studio, we need to adjust our `project.json` to point to RC2 like before:
+
+![2015-12-20 14_06_22-OpenIddictClient - Microsoft Visual Studio (Administrator).png]({{site.baseurl}}/media/2015-12-20 14_06_22-OpenIddictClient - Microsoft Visual Studio (Administrator).png)
+
+Whilst we're in there, remove `Application Insights`, too, for the same reason that we did in the authorisation server:
+
+{% highlight json %}
+"dependencies": {
+  "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
+}
+{% endhighlight %}
+
