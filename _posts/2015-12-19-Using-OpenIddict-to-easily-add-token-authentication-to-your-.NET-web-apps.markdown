@@ -50,16 +50,16 @@ Great, save that and `OpenIddict` will automagically be installed. Finally time 
 First up, add `.AddOpenIddict()` to the end of the `services.AddIdentity<ApplicationUser, IdentityRole>()` line in `ConfigureServices()` method in `Startup.cs`:
 
 {% highlight ruby %}
-        public void ConfigureServices(IServiceCollection services)
-        {
-            ...
+public void ConfigureServices(IServiceCollection services)
+{
+	...
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders()
-                // Add this line here
-                .AddOpenIddict();
-                
-            ...
-        }
+	services.AddIdentity<ApplicationUser, IdentityRole>()
+		.AddEntityFrameworkStores<ApplicationDbContext>()
+		.AddDefaultTokenProviders()
+		// Add this line here
+		.AddOpenIddict();
+		
+	...
+}
 {% endhighlight %}
