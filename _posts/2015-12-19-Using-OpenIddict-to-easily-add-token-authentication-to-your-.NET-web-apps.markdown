@@ -224,12 +224,15 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 }
 {% endhighlight %}
 
-For the above code to compile, you'll need to come up with a something for the following variables:
+For the above code to compile, you'll need to fill in the following variables:
 - YOUR_CLIENT_APP_ID
   - This is just the ID of your client. For now you can just use something like "My Client", nice and professinal, like
 - YOUR_CLIENT_APP_SECRET
   - Again, we're just getting this up and running so choose anything, but for production apps ensure this is kept absolutely private and is impossible to guess. Best to just use a random guid.
-
+- YOUR_CLIENT_APP_URL
+  - This is just the URL your client app is running at, for now it's likely some localhost URL
+- YOUR_AUTHENTICATION_SERVER_URL
+  - This is the URL of your authrozation server we configured earlier, again likely to be some localhost URL
 
 ## Create a login page
 Either replace the contents of your existing `Index.cshtml` with the following, or create a new page with the following cshtml code:
