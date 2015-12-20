@@ -352,3 +352,179 @@ public class ApplicationDbContext : OpenIddictContext<ApplicationUser>
     }
 }
 {% endhighlight %}
+
+Now open up your `AccountController.cs`.
+
+This next part is a bit of a hack for now, as we need to ensure that the database is created and ready for `OpenIddict` to use when account stuff happens.
+
+Firstly, we need to pass in our data context into our `AccountController` now because we're going to be looking up clients etc. so add `ApplicationDbContext` to your constructor and save a reference to it in a private field named `_applicationDbContext`. Your new constructor should look something like the following:
+
+{% highlight c# %}
+// Create this private field
+private readonly ApplicationDbContext _applicationDbContext;
+
+public AccountController(
+    UserManager<ApplicationUser> userManager,
+    SignInManager<ApplicationUser> signInManager,
+    IEmailSender emailSender,
+    ISmsSender smsSender,
+    ILoggerFactory loggerFactory,
+    // Add this in
+    ApplicationDbContext applicationDbContext)
+{
+    _userManager = userManager;
+    _signInManager = signInManager;
+    _emailSender = emailSender;
+    _smsSender = smsSender;
+    _logger = loggerFactory.CreateLogger<AccountController>();
+    // Save a reference to it
+    _applicationDbContext = applicationDbContext;
+}
+{% endhighlight %}
+
+Now add the following line to the top of each of the below three methods:
+
+{% highlight c# %}
+//
+// POST: /Account/Register
+[HttpPost]
+[AllowAnonymous]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Register(RegisterViewModel model)
+{
+    _applicationDbContext.EnsureDatabaseCreated();
+    ...
+}
+
+//
+// POST: /Account/ExternalLogin
+[HttpPost]
+[AllowAnonymous]
+[ValidateAntiForgeryToken]
+public IActionResult ExternalLogin(string provider, string returnUrl = null)
+{
+    _applicationDbContext.EnsureDatabaseCreated();
+    ...
+}
+
+//
+// POST: /Account/Login
+[HttpPost]
+[AllowAnonymous]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+{
+    _applicationDbContext.EnsureDatabaseCreated();
+    ...
+}
+{% endhighlight %}
+
+Now, open up your authorisation server's `Startup.cs` again and add the following code *beneath* `app.UseOpenIddict()`:
+
+{% highlight c# %}
+using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
+{
+    context.Database.EnsureCreated();
+
+    // Add Mvc.Client to the known applications.
+    if (!context.Applications.Any())
+    {
+        // Note: when using the introspection middleware, your resource server
+        // MUST be registered as an OAuth2 client and have valid credentials.
+        // 
+        // context.Applications.Add(new Application {
+        //     Id = "resource_server",
+        //     DisplayName = "Main resource server",
+        //     Secret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd"
+        // });
+
+        context.Applications.Add(new Application
+        {
+            Id = YOUR_CLIENT_APP_ID,
+            DisplayName = "My client application",
+            RedirectUri = YOUR_AUTHORISATION_APP_URL + "/signin-oidc",
+            LogoutRedirectUri = YOUR_CLIENT_APP_URL,
+            Secret = Crypto.HashPassword(YOUR_CLIENT_APP_SECRET),
+            Type = OpenIddictConstants.ApplicationTypes.Confidential
+        });
+
+        context.SaveChanges();
+    }
+}
+{% endhighlight %}
+
+Again, you'll need to fill in the variables for `YOUR_AUTHORISATION_APP_URL` and `YOUR_CLIENT_APP_URL`, `YOUR_CLIENT_APP_ID` and `YOUR_CLIENT_APP_SECRET` exactly as before.
+
+For now, we're hardcoding seeding our client app into our authorisation server's database. Later you might want to refactor this out.
+
+Finally, we'll need to run migrations on our database to get the `OpenIddict` tables in there.
+
+Open up a command prompt at your authorisation server's project folder and run the following command:
+
+`dnx ef migrations add OpenIddict`
+
+You will see this error, we'll deal with this in a moment:
+
+![2015-12-20 16_04_58-C__Windows_System32_cmd.exe.png]({{site.baseurl}}/media/2015-12-20 16_04_58-C__Windows_System32_cmd.exe.png)
+
+You should now see a new file in your solution explorer:
+
+![2015-12-20 16_05_32-Photos.png]({{site.baseurl}}/media/2015-12-20 16_05_32-Photos.png)
+
+We need to fix up the auto-generated migration a little.
+
+There will be lots of entries like this:
+
+{% highlight c# %}
+migrationBuilder.DropForeignKey(
+    name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+    table: "AspNetUserRoles");
+{% endhighlight %}
+
+Delete from this migration's `Up(..)` and `Down(..)` methods any entries that reference any `AspNetXXX` tables.
+
+You should end up with a migration class that looks more or less like this, but it might vary as `OpenIddict` changes:
+
+{% highlight c# %}
+public partial class OpenIddict : Migration
+{
+    protected override void Up(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.CreateTable(
+            name: "Application",
+            columns: table => new
+            {
+                Id = table.Column<string>(nullable: false),
+                DisplayName = table.Column<string>(nullable: true),
+                LogoutRedirectUri = table.Column<string>(nullable: true),
+                RedirectUri = table.Column<string>(nullable: true),
+                Secret = table.Column<string>(nullable: true),
+                Type = table.Column<string>(nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_Application", x => x.Id);
+            });
+    }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+        migrationBuilder.DropTable(
+            name: "Application");
+    }
+}
+{% endhighlight %}
+
+Now *be sure to recompile your whole project before the next step*, because we're going to run the migrations, but the migration running code doesn't compile your project for you, so if you forget you'll be using the old migrations.
+
+Now, go back to command prompt at your authorisation server's project folder and run the following command:
+
+`dnx ef database update`
+
+You should see something like this:
+
+![2015-12-20 16_13_20-C__Windows_System32_cmd.exe.png]({{site.baseurl}}/media/2015-12-20 16_13_20-C__Windows_System32_cmd.exe.png)
+
+Now go back to Visual Studio, hit `Ctrl+F5` and your authorisation server should run just like before:
+
+![2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png)
