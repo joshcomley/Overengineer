@@ -9,6 +9,7 @@ title: Updating a Visual Studio 2015 template ASP.NET 5 web application from RC1
 ---
 
 
+
 There are a few gotchas when migrating Visual Studio 2015's ASP.NET 5 web application template from `RC1` to `RC2`.
 
 This quick guide will help you through them.
@@ -88,5 +89,27 @@ Next up, some sneaky references still reside in some cshtml files. Delete the fo
 ![2015-12-20 14_14_56-Photos.png]({{site.baseurl}}/media/2015-12-20 14_14_56-Photos.png)
 
 The red squiggly error line is fine. Ignore it. It just wants to scare you but its behind a screen, it can't touch you.
+
+## Development mode
+
+`ASP.NET 5` allows you to write funky code like this:
+
+{% highlight c# %}
+if (env.IsDevelopment())
+{
+    app.UseBrowserLink();
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+}
+{% endhighlight %}
+
+This particular example ensures that in developer environments, you see useful exceptions, whereas elsewhere you see friendly error pages.
+
+For this to work in `RC2`, you'll need to add a new environment variable to be sure your `env` *is* `Development`. Go to your project properties, click on the `Debug` tab and add an `Environment Variable` called `ASPNET_ENV` with a value of `Development`:
+
+![2015-12-20 16_27_01-Photos.png]({{site.baseurl}}/media/2015-12-20 16_27_01-Photos.png)
 
 Now your application should run as expected. Enjoy!
