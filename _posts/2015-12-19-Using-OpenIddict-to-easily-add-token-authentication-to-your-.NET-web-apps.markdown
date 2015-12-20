@@ -528,3 +528,10 @@ You should see something like this:
 Now go back to Visual Studio, hit `Ctrl+F5` and your authorisation server should run just like before:
 
 ![2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png)
+
+# Almost done...
+We just need to tweak a few things in the authorisation server's views, now.
+Now everything is set up, you should be able to go to your client app, run it, click `Sign in`, go through the motions of signing in 
+
+# If something is broken
+If you try to run the project now get an error
