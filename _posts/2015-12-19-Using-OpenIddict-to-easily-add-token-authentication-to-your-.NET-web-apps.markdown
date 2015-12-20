@@ -83,43 +83,31 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     
     // This must be *after* "app.UseIdentity();" above
     app.UseOpenIddict();
-
-    app.UseMvcWithDefaultRoute();
-
-    using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
-    {
-        context.Database.EnsureCreated();
-
-        // Add Mvc.Client to the known applications.
-        if (!context.Applications.Any())
-        {
-            // Note: when using the introspection middleware, your resource server
-            // MUST be registered as an OAuth2 client and have valid credentials.
-            // 
-            // context.Applications.Add(new Application {
-            //     Id = "resource_server",
-            //     DisplayName = "Main resource server",
-            //     Secret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd"
-            // });
-
-            context.Applications.Add(new Application
-            {
-                Id = "myClient",
-                DisplayName = "My client application",
-                RedirectUri = YOUR_AUTHORISATION_APP_URL + "/signin-oidc",
-                LogoutRedirectUri = YOUR_CLIENT_APP_URL,
-                Secret = Crypto.HashPassword("secret_secret_secret"),
-                Type = OpenIddictConstants.ApplicationTypes.Confidential
-            });
-
-            context.SaveChanges();
-        }
-    }
+    
     ...
 }
 {% endhighlight %}
 
+In that same method, ensure you replace anything that looks like this:
+
+{% highlight c# %}
+app.UseMvc(routes =>
+{
+    routes.MapRoute(
+        name: "default",
+        template: "{controller=Home}/{action=Index}/{id?}");
+});
+{% endhighlight %}
+
+With this:
+
+{% highlight c# %}
+app.UseMvcWithDefaultRoute();
+{% endhighlight %}
+
 Alright, that's your authentication server configured for `OpenIddict`.
+
+We haven't configured any clients in the server yet, we will come back to do that once our client is set up and we know the details we'll need.
 
 Hit `Ctrl+F5` again and you should see the same screen as before. Nothing should be different.
 
@@ -209,8 +197,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
         var idServerUrl = YOUR_AUTHENTICATION_SERVER_URL;
         // Note: these settings must match the application details
         // inserted in the database at the server level.
-        options.ClientId = "myClient";
-        options.ClientSecret = "secret_secret_secret";
+        options.ClientId = YOUR_CLIENT_APP_ID;
+        options.ClientSecret = YOUR_CLIENT_APP_SECRET;
         options.PostLogoutRedirectUri = YOUR_CLIENT_APP_URL;
 
         options.RequireHttpsMetadata = false;
@@ -235,6 +223,13 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 	...
 }
 {% endhighlight %}
+
+For the above code to compile, you'll need to come up with a something for the following variables:
+- YOUR_CLIENT_APP_ID
+  - This is just the ID of your client. For now you can just use something like "My Client", nice and professinal, like
+- YOUR_CLIENT_APP_SECRET
+  - Again, we're just getting this up and running so choose anything, but for production apps ensure this is kept absolutely private and is impossible to guess. Best to just use a random guid.
+
 
 ## Create a login page
 Either replace the contents of your existing `Index.cshtml` with the following, or create a new page with the following cshtml code:
@@ -288,6 +283,8 @@ The `SignOut()` method above can be in any controller, because we've mapped a sp
 Now, hit `Ctrl+F5` and you should see a nice big green `Sign in` button:
 
 ![2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png)
+
+Before we click it
 
 
 
