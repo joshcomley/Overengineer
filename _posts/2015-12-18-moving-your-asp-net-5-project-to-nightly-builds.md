@@ -10,7 +10,10 @@ title: Moving your ASP.NET 5 project to nightly builds
 
 
 
+
 # Moving your ASP.NET 5 project to nightly builds
+
+**Note: At the time of writing, `ASP.NET 5` is on `RC1`, and the nightly builds are for `RC2`, so although there is some `RC1`/`RC2` wording things below, this should work whatever revision the public/nightly set up is on.**
 
 So first we need to install the latest nightly builds on your machine. Fire up `Command Prompt` anywhere you like and type in:
 
@@ -71,3 +74,6 @@ As soon as you save, it'll start downloading the new packages:
 When it's done, you should have all new `RC2` references:
 
 ![2015-12-19 21_33_15-OneNote.png]({{site.baseurl}}/media/2015-12-19 21_33_15-OneNote.png)
+
+## RC1 -> RC2 problems
+If you are using the Visual Studio 2015 template for an `ASP.NET 5` web application, then it is essentialy you also [follow my article on how to fix some gotchas when migrating to RC2](/updating-a-visual-studio-2015-template-asp-net-5-web-application-from-rc1-to-rc2).
