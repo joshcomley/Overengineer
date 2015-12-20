@@ -131,7 +131,7 @@ using Microsoft.AspNet.Http;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 {% endhighlight %}
 
-And add the following to each of the below methods:
+And add the following to each of the below methods, ensuring you configure line `34` and `39` with your respective application URLs:
 
 {% highlight c# linenos=table %}
 public void ConfigureServices(IServiceCollection services)
@@ -167,12 +167,12 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 
     app.UseOpenIdConnectAuthentication(options =>
     {
-        var idServerUrl = "http://localhost:50513/";
+        var idServerUrl = YOUR_AUTHENTICATION_SERVER_URL;
         // Note: these settings must match the application details
         // inserted in the database at the server level.
         options.ClientId = "myClient";
         options.ClientSecret = "secret_secret_secret";
-        options.PostLogoutRedirectUri = "http://localhost:53984/";
+        options.PostLogoutRedirectUri = YOUR_CLIENT_APP_URL;
 
         options.RequireHttpsMetadata = false;
         options.GetClaimsFromUserInfoEndpoint = true;
