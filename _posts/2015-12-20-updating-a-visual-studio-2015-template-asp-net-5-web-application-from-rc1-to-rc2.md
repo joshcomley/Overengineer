@@ -72,7 +72,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 {% endhighlight %}
 
 ## cshtml
-Next up, some sneaky references still reside in some cshtml files.
+Next up, some sneaky references still reside in some cshtml files. Delete the following lines where `ApplicationInsights` is in red:
 
 ### `\Views\Shared\_Layout.cshtml`
 
@@ -82,4 +82,4 @@ Next up, some sneaky references still reside in some cshtml files.
 
 ![2015-12-20 13_13_00-Photos.png]({{site.baseurl}}/media/2015-12-20 13_13_00-Photos.png)
 
-Now your application should run as expected.
+Now your application should run as expected. Enjoy!
