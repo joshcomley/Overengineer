@@ -46,3 +46,20 @@ Now we need to add `OpenIddict` to our `project.json`:
 ![2015-12-19 21_34_37-AuthorisationServer - Microsoft Visual Studio (Administrator).png]({{site.baseurl}}/media/2015-12-19 21_34_37-AuthorisationServer - Microsoft Visual Studio (Administrator).png)
 
 Great, save that and `OpenIddict` will automagically be installed. Finally time to plug in `OpenIddict` in the actual code of your new web app.
+
+First up, add `.AddOpenIddict()` to the end of the `services.AddIdentity<ApplicationUser, IdentityRole>()` line in `ConfigureServices()` method in `Startup.cs`:
+
+{% highlight ruby %}
+        public void ConfigureServices(IServiceCollection services)
+        {
+            ...
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders()
+                // Add this line here
+                .AddOpenIddict();
+                
+            ...
+        }
+{% endhighlight %}
