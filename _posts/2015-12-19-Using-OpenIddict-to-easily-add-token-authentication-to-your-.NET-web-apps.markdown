@@ -133,7 +133,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 And add the following to each of the below methods:
 
-{% highlight c# lineos=table %}
+{% highlight c# linenos=table %}
 public void ConfigureServices(IServiceCollection services)
 {
 	// Add the below code to the top of this method
