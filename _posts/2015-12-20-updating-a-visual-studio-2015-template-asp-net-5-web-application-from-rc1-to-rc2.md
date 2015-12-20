@@ -8,6 +8,7 @@ published: true
 title: Updating a Visual Studio 2015 template ASP.NET 5 web application from RC1 to RC2
 ---
 
+
 There are a few gotchas when migrating Visual Studio 2015's ASP.NET 5 web application template from `RC1` to `RC2`.
 
 This quick guide will help you through them.
@@ -81,5 +82,11 @@ Next up, some sneaky references still reside in some cshtml files. Delete the fo
 ### `\Views\_ViewImports.cshtml`
 
 ![2015-12-20 13_13_00-Photos.png]({{site.baseurl}}/media/2015-12-20 13_13_00-Photos.png)
+
+`_ViewImports.cshtml` has one other sneaky change in `RC2` that we need to make. The line beginning with `@addTagHelper` needs to have the quotes removed from around `*, Microsoft.AspNet.Mvc.TagHelpers`, so it ends up looking like this:
+
+![2015-12-20 14_14_56-Photos.png]({{site.baseurl}}/media/2015-12-20 14_14_56-Photos.png)
+
+The red squiggly error line is fine. Ignore it. It just wants to scare you but its behind a screen, it can't touch you.
 
 Now your application should run as expected. Enjoy!
