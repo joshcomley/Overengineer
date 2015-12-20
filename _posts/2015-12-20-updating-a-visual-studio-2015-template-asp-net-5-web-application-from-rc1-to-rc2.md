@@ -24,10 +24,7 @@ First up, remove even the reference to `Application Insights` from your `project
 
 {% highlight json %}
   "dependencies": {
-  	...
-    // Delete this line:
     "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc2-*",
-    ...
   },
 {% endhighlight %}
 
@@ -65,4 +62,24 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     app.UseApplicationInsightsExceptionTelemetry();
     ...
 }
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{
+	...
+    loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+    ...
+}
 {% endhighlight %}
+
+## cshtml
+Next up, some sneaky references still reside in some cshtml files.
+
+### `\Views\Shared\_Layout.cshtml`
+
+![2015-12-20 13_12_10-Photos.png]({{site.baseurl}}/media/2015-12-20 13_12_10-Photos.png)
+
+### `\Views\_ViewImports.cshtml`
+
+![2015-12-20 13_13_00-Photos.png]({{site.baseurl}}/media/2015-12-20 13_13_00-Photos.png)
+
+Now your application should run as expected.
