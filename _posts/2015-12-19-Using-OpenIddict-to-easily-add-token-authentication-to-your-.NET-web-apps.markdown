@@ -287,8 +287,68 @@ Now, hit `Ctrl+F5` and you should see a nice big green `Sign in` button:
 
 ![2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png)
 
-Before we click it
+Before we click it...
 
+# Back to the authorisation server project
+...we need to dip back into our authorisation server to configure our new clientn app.
 
+The first thing we need to do is make our data context inherit from `OpenIddictContext`. So open up your `ApplicationDbContext.cs` and add the following using:
 
+{% highlight c# %}
+using OpenIddict;
+{% endhighlight %}
 
+Then change the class definition to this:
+
+{% highlight c# %}
+public class ApplicationDbContext : OpenIddictContext<ApplicationUser>
+{% endhighlight %}
+
+Then add the following method:
+
+{% highlight c# %}
+private static bool _databaseChecked;
+// The following code creates the database and schema if they don't exist.
+// This is a temporary workaround since deploying database through EF migrations is
+// not yet supported in this release.
+// Please see this http://go.microsoft.com/fwlink/?LinkID=615859 for more information on how to do deploy the database
+// when publishing your application.
+public void EnsureDatabaseCreated()
+{
+    if (!_databaseChecked)
+    {
+        _databaseChecked = true;
+        this.Database.EnsureCreated();
+    }
+}
+{% endhighlight %}
+
+Your final class should look something like this:
+
+{% highlight c# %}
+public class ApplicationDbContext : OpenIddictContext<ApplicationUser>
+{
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        // Customize the ASP.NET Identity model and override the defaults if needed.
+        // For example, you can rename the ASP.NET Identity table names and more.
+        // Add your customizations after calling base.OnModelCreating(builder);
+    }
+
+    private static bool _databaseChecked;
+    // The following code creates the database and schema if they don't exist.
+    // This is a temporary workaround since deploying database through EF migrations is
+    // not yet supported in this release.
+    // Please see this http://go.microsoft.com/fwlink/?LinkID=615859 for more information on how to do deploy the database
+    // when publishing your application.
+    public void EnsureDatabaseCreated()
+    {
+        if (!_databaseChecked)
+        {
+            _databaseChecked = true;
+            this.Database.EnsureCreated();
+        }
+    }
+}
+{% endhighlight %}
