@@ -10,6 +10,7 @@ tags:
 ---
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -36,7 +37,7 @@ Hit `Ctrl+F5` and you should see your new app running smoothly:
 
 Now, before we go any further, at the time of typing *OpenIddict* uses the latest nightly builds of ASP.NET. As such we need to update our own code to use the nightly builds.
 
-You can refer to my previous blog post on how to achieve this.
+You can [refer to my previous blog post on how to achieve this](/moving-your-asp-net-5-project-to-nightly-builds). Make sure you follow the tutorial carefully.
 
 Lovely. So far, so Microsoft. Now let's start adding the *OpenIddict* stuff.
 
@@ -45,7 +46,3 @@ Now we need to add `OpenIddict` to our `project.json`:
 ![2015-12-19 21_34_37-AuthorisationServer - Microsoft Visual Studio (Administrator).png]({{site.baseurl}}/media/2015-12-19 21_34_37-AuthorisationServer - Microsoft Visual Studio (Administrator).png)
 
 Great, save that and `OpenIddict` will automagically be installed. Finally time to plug in `OpenIddict` in the actual code of your new web app.
-
-
-
-
