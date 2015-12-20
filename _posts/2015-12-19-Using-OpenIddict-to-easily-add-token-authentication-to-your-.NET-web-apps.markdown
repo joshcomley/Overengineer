@@ -12,6 +12,7 @@ tags:
 
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -110,4 +111,108 @@ We don't need the authentication code, because we'll be "out sourcing" that to o
 ## RC2
 At the time of writing, `OpenIddict` uses the `RC2` nightly builds of `ASP.NET 5`, so just as we did with the authentication server follow my guide on [moving your ASP.NET 5 project to nightly builds](/moving-your-asp-net-5-project-to-nightly-builds/).
 
+## project.json
+Now we need to add the companion authentication project references to our client web app. OpenIddict uses another project, by the same author, called `Microsoft.AspNet.Authentication.OpenIdConnect`. Add the following dependencies to your `project.json`:
 
+{% highlight json %}
+ "dependencies": {
+    "Microsoft.AspNet.Authentication.Cookies": "1.0.0-rc2-*",
+    "Microsoft.AspNet.Authentication.OpenIdConnect": "1.0.0-rc2-*",
+}
+{% endhighlight %}
+
+## Startup.cs
+Now in your `Startup.cs`, add the following using directives at the top:
+
+{% highlight c# %}
+using Microsoft.AspNet.Authentication;
+using Microsoft.AspNet.Authentication.Cookies;
+using Microsoft.AspNet.Http;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+{% endhighlight %}
+
+And add the following to each of the below methods:
+
+{% highlight c# %}
+public void ConfigureServices(IServiceCollection services)
+{
+	// Add the below code to the top of this method
+    services.Configure<SharedAuthenticationOptions>(options =>
+    {
+        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    });
+
+    services.AddAuthentication();
+    ...
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{
+	...
+    app.UseIISPlatformHandler();
+
+    app.UseStaticFiles();
+    
+    // Add the following code after your calls to "app.UseIISPlatformHandler()" and
+    // "app.UseStaticFiles()"
+
+    // Insert a new cookies middleware in the pipeline to store the user
+    // identity after he has been redirected from the identity provider.
+    app.UseCookieAuthentication(options =>
+    {
+        options.AutomaticAuthenticate = true;
+        options.AutomaticChallenge = true;
+        options.LoginPath = new PathString("/signin");
+    });
+
+    app.UseOpenIdConnectAuthentication(options =>
+    {
+        var idServerUrl = "http://localhost:50513/";
+        // Note: these settings must match the application details
+        // inserted in the database at the server level.
+        options.ClientId = "myClient";
+        options.ClientSecret = "secret_secret_secret";
+        options.PostLogoutRedirectUri = "http://localhost:53984/";
+
+        options.RequireHttpsMetadata = false;
+        options.GetClaimsFromUserInfoEndpoint = true;
+        options.SaveTokensAsClaims = true;
+
+        // Use the authorization code flow.
+        options.ResponseType = OpenIdConnectResponseTypes.Code;
+
+        // Note: setting the Authority allows the OIDC client middleware to automatically
+        // retrieve the identity provider's configuration and spare you from setting
+        // the different endpoints URIs or the token validation parameters explicitly.
+        options.Authority = idServerUrl;
+
+        // Note: the resource property represents the different endpoints the
+        // access token should be issued for (values must be space-delimited).
+        options.Resource = idServerUrl;
+
+        options.Scope.Add("email");
+    });
+    
+	...
+}
+{% endhighlight %}
+
+## Create a login page
+Either replace the contents of your existing `Index.cshtml` with the following, or create a new page with the following cshtml code:
+
+{% highlight aspx-cs %}
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (User?.Identity?.IsAuthenticated ?? false)
+{
+    <h1>Welcome, @User.Identity.Name</h1>
+    <a class="btn btn-lg btn-danger" href="/signout">Sign out</a>
+}
+else
+{
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+        <a class="btn btn-lg btn-success" href="/home/signin">Sign in</a>
+    </div>
+}
+{% endhighlight %}
