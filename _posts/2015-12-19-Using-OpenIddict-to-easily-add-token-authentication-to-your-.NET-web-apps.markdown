@@ -47,7 +47,7 @@ Now we need to add `OpenIddict` to our `project.json`:
 
 Great, save that and `OpenIddict` will automagically be installed. Finally time to plug in `OpenIddict` in the actual code of your new web app.
 
-First up, add `.AddOpenIddict()` to the end of the `services.AddIdentity<ApplicationUser, IdentityRole>()` line in `ConfigureServices()` method in `Startup.cs`:
+First up, add `.AddOpenIddict()` to the end of the `services.AddIdentity<ApplicationUser, IdentityRole>()` line in `ConfigureServices()` method in `Startup.cs` (line 9 below):
 
 {% highlight c# linenos=table hl_lines=9 %}
 public void ConfigureServices(IServiceCollection services)
@@ -63,3 +63,32 @@ public void ConfigureServices(IServiceCollection services)
 	...
 }
 {% endhighlight %}
+
+Next up, in your `Configure(..)` method add `app.UseOpenIddict()` (line 7 below). Crucially, this must be added *after* `app.UseIdentity()` is called:
+
+{% highlight c# linenos=table %}
+public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+{
+	...
+    app.UseIdentity();
+    
+    // This must be *after* "app.UseIdentity();" above
+    app.UseOpenIddict();
+    ...
+}
+{% endhighlight %}
+
+Alright, that's your authentication server configured for `OpenIddict`.
+
+Hit `Ctrl+F5` again and you should see the same screen as before. Nothing should be different.
+
+For more details on configuration options with OpenIddict, see [Confniguration & Options](https://github.com/openiddict/core/wiki/Configuration-&-Options) on the OpenIddict github page.
+
+## What exactly is this code going to do, then?
+This code will create the endpoints necessary to receive authentication requests and issues cookies/tokens etc. Think of it as crating a listener in your app that will listen at points like:
+
+`http://localhost:1212/authenticate`
+
+You will now modify your client app so that it will send requests to these endpoints when it wants to sort things out like logging in, logging out, er, logging back in again and so on.
+
+# Client
