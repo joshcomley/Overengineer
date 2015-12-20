@@ -217,9 +217,15 @@ else
 }
 {% endhighlight %}
 
-Now add the following methods to the controller for the above cshtml file:
+Now add the following usings and methods to the controller for the above cshtml file:
 
 {% highlight c# %}
+using Microsoft.AspNet.Authentication.Cookies;
+using Microsoft.AspNet.Authentication.OpenIdConnect;
+using Microsoft.AspNet.Http.Authentication;
+
+...
+
 public IActionResult SignIn()
 {
     return new ChallengeResult(OpenIdConnectDefaults.AuthenticationScheme, new AuthenticationProperties
