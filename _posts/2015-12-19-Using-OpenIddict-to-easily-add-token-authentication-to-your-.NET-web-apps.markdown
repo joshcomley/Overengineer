@@ -133,7 +133,7 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 And add the following to each of the below methods:
 
-{% highlight c# %}
+{% highlight c# lineos=table %}
 public void ConfigureServices(IServiceCollection services)
 {
 	// Add the below code to the top of this method
@@ -207,13 +207,11 @@ Either replace the contents of your existing `Index.cshtml` with the following, 
 @if (User?.Identity?.IsAuthenticated ?? false)
 {
     <h1>Welcome, @User.Identity.Name</h1>
-    <a class="btn btn-lg btn-danger" href="/signout">Sign out</a>
+        <a class="btn btn-lg btn-danger" href="/signout">Sign out</a>
 }
 else
 {
-    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
-        <a class="btn btn-lg btn-success" href="/home/signin">Sign in</a>
-    </div>
+    <a class="btn btn-lg btn-success" href="/home/signin">Sign in</a>
 }
 {% endhighlight %}
 
@@ -247,4 +245,11 @@ public async Task SignOut()
 {% endhighlight %}
 
 The `SignOut()` method above can be in any controller, because we've mapped a specific route, which is the relative route `~/signout` to always go to this action.
+
+Now, hit `Ctrl+F5` and you should see a nice big green `Sign in` button:
+
+![2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png)
+
+
+
 
