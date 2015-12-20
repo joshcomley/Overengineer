@@ -13,6 +13,7 @@ tags:
 
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -535,3 +536,7 @@ Now everything is set up, you should be able to go to your client app, run it, c
 
 # If something is broken
 If you try to run the project now get an error
+
+{% highlight c# %}
+app.UseOAuthValidation();
+{% endhighlight %}
