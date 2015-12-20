@@ -136,7 +136,7 @@ And add the following to each of the below methods, ensuring you configure line 
 {% highlight c# linenos=table %}
 public void ConfigureServices(IServiceCollection services)
 {
-	// Add the below code to the top of this method
+    // Add the below code to the top of this method
     services.Configure<SharedAuthenticationOptions>(options =>
     {
         options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
