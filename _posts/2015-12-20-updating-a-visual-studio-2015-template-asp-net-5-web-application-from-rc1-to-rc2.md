@@ -10,6 +10,7 @@ title: Updating a Visual Studio 2015 template ASP.NET 5 web application from RC1
 
 
 
+
 There are a few gotchas when migrating Visual Studio 2015's ASP.NET 5 web application template from `RC1` to `RC2`.
 
 This quick guide will help you through them.
@@ -89,6 +90,15 @@ Next up, some sneaky references still reside in some cshtml files. Delete the fo
 ![2015-12-20 14_14_56-Photos.png]({{site.baseurl}}/media/2015-12-20 14_14_56-Photos.png)
 
 The red squiggly error line is fine. Ignore it. It just wants to scare you but its behind a screen, it can't touch you.
+
+### All cshtml
+Run a find and replace on all cshtml files, replacing:
+
+`asp-validation-summary="ValidationSummary.All"`
+
+With:
+
+`asp-validation-summary="All"`
 
 ## Development mode
 
