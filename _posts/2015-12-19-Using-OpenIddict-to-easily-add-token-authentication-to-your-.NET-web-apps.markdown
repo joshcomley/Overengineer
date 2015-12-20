@@ -107,16 +107,7 @@ This time, however, make sure you click `Change authentication` and then select 
 
 We don't need the authentication code, because we'll be "out sourcing" that to our `OpenIddict` authentication server.
 
-## project.json
-Once you've got your project up in Visual Studio, we need to adjust our `project.json` to point to RC2 like before:
+## RC2
+At the time of writing, `OpenIddict` uses the `RC2` nightly builds of `ASP.NET 5`, so just as we did with the authentication server follow my guide on [moving your ASP.NET 5 project to nightly builds](/moving-your-asp-net-5-project-to-nightly-builds/).
 
-![2015-12-20 14_06_22-OpenIddictClient - Microsoft Visual Studio (Administrator).png]({{site.baseurl}}/media/2015-12-20 14_06_22-OpenIddictClient - Microsoft Visual Studio (Administrator).png)
-
-Whilst we're in there, remove `Application Insights`, too, for the same reason that we did in the authorisation server:
-
-{% highlight json %}
-"dependencies": {
-  "Microsoft.ApplicationInsights.AspNet": "1.0.0-rc1",
-}
-{% endhighlight %}
 
