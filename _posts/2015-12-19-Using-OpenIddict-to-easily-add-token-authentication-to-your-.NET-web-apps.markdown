@@ -49,9 +49,16 @@ Now we need to add `OpenIddict` to our `project.json`:
 
 Great, save that and `OpenIddict` will automagically be installed. Finally time to plug in `OpenIddict` in the actual code of your new web app.
 
-First up, add `.AddOpenIddict()` to the end of the `services.AddIdentity<ApplicationUser, IdentityRole>()` line in `ConfigureServices()` method in `Startup.cs` (line 9 below):
+First up, add the following usings to the top of your `Startup.cs`:
 
-{% highlight c# linenos=table hl_lines=9 %}
+{% highlight c# linenos=table %}
+using OpenIddict;
+using OpenIddict.Models;
+{% endhighlight %}
+
+Then, add `.AddOpenIddict()` to the end of the `services.AddIdentity<ApplicationUser, IdentityRole>()` line in `ConfigureServices()` method in `Startup.cs` (line 9 below):
+
+{% highlight c# linenos=table %}
 public void ConfigureServices(IServiceCollection services)
 {
 	...
@@ -66,7 +73,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 {% endhighlight %}
 
-Next up, in your `Configure(..)` method add `app.UseOpenIddict()` (line 7 below). Crucially, this must be added *after* `app.UseIdentity()` is called:
+Next up, in your `Configure(..)` method add the following code (from line 7 below). Crucially, this must be added *after* `app.UseIdentity()` is called:
 
 {% highlight c# linenos=table %}
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -76,6 +83,38 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     
     // This must be *after* "app.UseIdentity();" above
     app.UseOpenIddict();
+
+    app.UseMvcWithDefaultRoute();
+
+    using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbContext>())
+    {
+        context.Database.EnsureCreated();
+
+        // Add Mvc.Client to the known applications.
+        if (!context.Applications.Any())
+        {
+            // Note: when using the introspection middleware, your resource server
+            // MUST be registered as an OAuth2 client and have valid credentials.
+            // 
+            // context.Applications.Add(new Application {
+            //     Id = "resource_server",
+            //     DisplayName = "Main resource server",
+            //     Secret = "875sqd4s5d748z78z7ds1ff8zz8814ff88ed8ea4z4zzd"
+            // });
+
+            context.Applications.Add(new Application
+            {
+                Id = "myClient",
+                DisplayName = "My client application",
+                RedirectUri = YOUR_AUTHORISATION_APP_URL + "/signin-oidc",
+                LogoutRedirectUri = YOUR_CLIENT_APP_URL,
+                Secret = Crypto.HashPassword("secret_secret_secret"),
+                Type = OpenIddictConstants.ApplicationTypes.Confidential
+            });
+
+            context.SaveChanges();
+        }
+    }
     ...
 }
 {% endhighlight %}
