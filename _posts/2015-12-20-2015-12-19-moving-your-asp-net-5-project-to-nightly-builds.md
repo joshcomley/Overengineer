@@ -4,7 +4,7 @@ category: blog
 splash: ""
 tags: 
   - "null"
-published: false
+published: true
 title: Moving your ASP.NET 5 project to nightly builds
 ---
 
