@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
+tags: 
+  - "null"
 published: false
-title: "2015-12-19 Moving your ASP.NET 5 project to nightly builds"
+title: Moving your ASP.NET 5 project to nightly builds
 ---
+
 
 # Moving your ASP.NET 5 project to nightly builds
 
