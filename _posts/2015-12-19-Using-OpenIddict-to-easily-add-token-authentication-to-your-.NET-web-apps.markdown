@@ -67,15 +67,13 @@ Then, add `.AddOpenIddict()` to the end of the `services.AddIdentity<Application
 {% highlight c# linenos=table %}
 public void ConfigureServices(IServiceCollection services)
 {
-	...
-
+    ...
 	services.AddIdentity<ApplicationUser, IdentityRole>()
 		.AddEntityFrameworkStores<ApplicationDbContext>()
 		.AddDefaultTokenProviders()
 		// Add this line here
 		.AddOpenIddict();
-		
-	...
+    ...
 }
 {% endhighlight %}
 
@@ -84,12 +82,11 @@ Next up, in your `Configure(..)` method add the following code (from line 7 belo
 {% highlight c# linenos=table %}
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 {
-	...
+    ...
     app.UseIdentity();
     
     // This must be *after* "app.UseIdentity();" above
     app.UseOpenIddict();
-    
     ...
 }
 {% endhighlight %}
