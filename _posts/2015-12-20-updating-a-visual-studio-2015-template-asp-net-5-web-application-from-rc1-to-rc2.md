@@ -12,6 +12,7 @@ title: Updating a Visual Studio 2015 template ASP.NET 5 web application from RC1
 
 
 
+
 There are a few gotchas when migrating Visual Studio 2015's ASP.NET 5 web application template from `RC1` to `RC2`.
 
 This quick guide will help you through them.
@@ -69,7 +70,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 {
-	...
+    ...
     loggerFactory.AddConsole(Configuration.GetSection("Logging"));
     ...
 }
