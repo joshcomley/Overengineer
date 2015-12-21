@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: "Pretty, extensionless links in GitHub Pages using Jekyll"
 ---
+
 
 If you want to have extensionless links in GitHub pages then you might be inclined to add a permalink to the metadata of your page or post:
 
