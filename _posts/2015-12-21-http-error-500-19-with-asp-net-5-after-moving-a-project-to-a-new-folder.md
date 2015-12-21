@@ -13,12 +13,6 @@ If you move your `ASP.NET 5` project to a new folder and run it, you might sudde
 
 ![2015-12-21 11_42_42-IIS 10.0 Detailed Error - 500.19 - Internal Server Error ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-21 11_42_42-IIS 10.0 Detailed Error - 500.19 - Internal Server Error ‎- Microsoft Edge.png)
 
-To resolve this, I did two things.
+To resolve this, just restart Visual Studio *even if you've only just opened Visual Studio fresh anyway*. Don't waste time fiddling around with a perfectly fine `web.config`.
 
-# Kill IIS Express
-
-<img src="{{site.baseurl}}/media/2015-12-21 11_44_11-Run.png" width="65%" />
-
-# Restart Visual Studio
-
-After which, my project ran fine again and IIS found the new `web.config`. I guess it is a teething problem with the latest version of IIS Express.
+I guess it is a teething problem with the latest version of IIS Express.
