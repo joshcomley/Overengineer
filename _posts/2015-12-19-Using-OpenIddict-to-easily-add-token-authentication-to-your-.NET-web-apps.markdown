@@ -11,6 +11,7 @@ tags:
 
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -611,3 +612,6 @@ return RedirectToLocal(returnUrl);
 {% endhighlight %}
 
 Now everything is set up, you should be able to go to your client app, run it, click `Sign in`, go through the motions of signing in.
+
+The sample projects from this code can be found on GitHub here:
+<https://github.com/Brandless/DayZero/tree/master/Demos/Overengineer/OpenIddict%20Demo%201>
