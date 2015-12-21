@@ -11,10 +11,6 @@ tags:
 
 
 
-
-
-
-
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -45,10 +41,11 @@ You can [refer to my previous blog post on how to achieve this](/moving-your-asp
 
 Lovely. So far, so Microsoft. Now let's start adding the *OpenIddict* stuff.
 
-Now we need to add `OpenIddict` to our `project.json`:
+Now we need to add `OpenIddict` to our `project.json`. Add the following two dependencies to your `project.json`:
 
 {% highlight json %}
   "dependencies": {
+    "AspNet.Security.OAuth.Validation": "1.0.0-*",
     "OpenIddict": "1.0.0-*"
   }
 {% endhighlight %}
@@ -77,7 +74,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 {% endhighlight %}
 
-Next up, in your `Configure(..)` method add the following code (from line 7 below). Crucially, this must be added *after* `app.UseIdentity()` is called:
+Next up, in your `Configure(..)` method add the following code (from and including line 7 below). Crucially, this must be added *after* `app.UseIdentity()` is called:
 
 {% highlight c# linenos=table %}
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -85,6 +82,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
     ...
     app.UseIdentity();
     
+    app.UseOAuthValidation();
     // This must be *after* "app.UseIdentity();" above
     app.UseOpenIddict();
     ...
@@ -612,12 +610,4 @@ To:
 return RedirectToLocal(returnUrl);
 {% endhighlight %}
 
-## Acc
-
-You will need to add the `asp-route-returnUrl="@ViewData["ReturnUrl"]"` attribute also to the folli
-
 Now everything is set up, you should be able to go to your client app, run it, click `Sign in`, go through the motions of signing in.
-
-{% highlight c# %}
-app.UseOAuthValidation();
-{% endhighlight %}
