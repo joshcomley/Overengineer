@@ -34,7 +34,7 @@ You should now have a nice, fresh authorisation server web application:
 
 Hit `Ctrl+F5` and you should see your new app running smoothly:
 
-![2015-12-19 20_50_10-Home Page - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-19 20_50_10-Home Page - AuthorisationServer ‎- Microsoft Edge.png)
+![2015-12-19 20_50_10-Home Page - AuthorisationServer - Microsoft Edge.png]({{site.baseurl}}/media/2015-12-19 20_50_10-Home Page - AuthorisationServer - Microsoft Edge.png)
 
 Now, before we go any further, at the time of typing *OpenIddict* uses the latest nightly builds of ASP.NET. As such we need to update our own code to use the nightly builds.
 
@@ -283,7 +283,7 @@ The `SignOut()` method above can be in any controller, because we've mapped a sp
 
 Now, hit `Ctrl+F5` and you should see a nice big green `Sign in` button:
 
-![2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 15_00_26-Home Page - OpenIddictClient ‎- Microsoft Edge.png)
+![2015-12-20 15_00_26-Home Page - OpenIddictClient - Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 15_00_26-Home Page - OpenIddictClient - Microsoft Edge.png)
 
 Before we click it...
 
@@ -525,14 +525,14 @@ You should see something like this:
 
 Now go back to Visual Studio, hit `Ctrl+F5` and your authorisation server should run just like before:
 
-![2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png)
+![2015-12-20 16_14_36-Home Page - AuthorisationServer - Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 16_14_36-Home Page - AuthorisationServer - Microsoft Edge.png)
 
 # Almost done...
 We just need to tweak a few things in the authorisation server's views.
 
 The login screen that comes with the `Individual Accounts` template contains a `Register as a new user?` link:
 
-![2015-12-21 12_26_47-Log in - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-21 12_26_47-Log in - AuthorisationServer ‎- Microsoft Edge.png)
+![2015-12-21 12_26_47-Log in - AuthorisationServer - Microsoft Edge.png]({{site.baseurl}}/media/2015-12-21 12_26_47-Log in - AuthorisationServer - Microsoft Edge.png)
 
 By the time we get to this screen, we are in the `Authorisation App` and all the details about the client that would like to login are contained within URL parameters, like this:
 
