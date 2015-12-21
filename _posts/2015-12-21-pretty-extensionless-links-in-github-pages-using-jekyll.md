@@ -5,11 +5,11 @@ splash: ""
 tags: 
   - "null"
 published: true
-title: "Pretty, extensionless links in GitHub Pages using Jekyll"
+title: "Pretty, extensionless URLs in GitHub Pages using Jekyll"
 ---
 
 
-If you want to have extensionless links in GitHub pages then you might be inclined to add a permalink to the metadata of your page or post:
+If you want to have extensionless URLs in GitHub Pages then you might be inclined to add a permalink to the metadata of your page or post:
 
     permalink: /my-pretty-url
     
