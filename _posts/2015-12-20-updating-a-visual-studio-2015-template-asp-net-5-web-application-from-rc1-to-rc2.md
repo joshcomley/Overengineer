@@ -11,6 +11,7 @@ title: Updating a Visual Studio 2015 template ASP.NET 5 web application from RC1
 
 
 
+
 There are a few gotchas when migrating Visual Studio 2015's ASP.NET 5 web application template from `RC1` to `RC2`.
 
 This quick guide will help you through them.
@@ -99,6 +100,10 @@ Run a find and replace on all cshtml files, replacing:
 With:
 
 `asp-validation-summary="All"`
+
+You can quite safely run a `Fine and replace` throughout your solution like this:
+
+![2015-12-21 12_04_11-AuthorisationServer.png]({{site.baseurl}}/media/2015-12-21 12_04_11-AuthorisationServer.png)
 
 ## Development mode
 
