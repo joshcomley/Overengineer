@@ -216,10 +216,6 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
         // the different endpoints URIs or the token validation parameters explicitly.
         options.Authority = idServerUrl;
 
-        // Note: the resource property represents the different endpoints the
-        // access token should be issued for (values must be space-delimited).
-        options.Resource = idServerUrl;
-
         options.Scope.Add("email");
     });
     
@@ -551,19 +547,66 @@ This is no good, because now `OpenIddict` has lost all the information it needs.
 
 Thankfully, this is very simple.
 
-Open up `Login.cshtml` in your `Authorisation App`, and replace the following line:
+In the `Authorisation App`, open up the following files and update the code as described.
 
-{% highlight aspx-cs %}
-<a asp-action="Register">Register as a new user?</a>
-{% endhighlight %}
-
-With this one:
+## Login.cshtml
+Add the `asp-route-returnUrl="@ViewData["ReturnUrl"]"` to the `Register as a new user?` link:
 
 {% highlight aspx-cs %}
 <a asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]">Register as a new user?</a>
 {% endhighlight %}
 
-*In other words*, wherever you need to fix a link like this, simply add this attribute: `asp-route-returnUrl="@ViewData["ReturnUrl"]"`
+## Register.cshtml
+Add the `asp-route-returnUrl="@ViewData["ReturnUrl"]"` to the form declaration:
+
+{% highlight aspx-cs %}
+<form asp-controller="Account" asp-action="Register" asp-route-returnUrl="@ViewData["returnUrl"]" method="post" class="form-horizontal" role="form">
+{% endhighlight %}
+
+## AccountController.cs
+
+Update your `Register` GET and POST methods to accept the `returnUrl` parameter and assign the return URL to the view state:
+
+{% highlight c# %}
+//
+// GET: /Account/Register
+[HttpGet]
+[AllowAnonymous]
+public IActionResult Register(string returnUrl = null)
+{
+    ViewData["ReturnUrl"] = returnUrl;
+    return View();
+}
+{% endhighlight %}
+
+{% highlight c# %}
+//
+// POST: /Account/Register
+[HttpPost]
+[AllowAnonymous]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+{
+    ViewData["ReturnUrl"] = returnUrl;
+    ...
+}
+{% endhighlight %}
+
+Later in your `Register` POST method, change the return from:
+
+{% highlight c# %}
+return RedirectToAction(nameof(HomeController.Index), "Home");
+{% endhighlight %}
+
+To:
+
+{% highlight c# %}
+return RedirectToLocal(returnUrl);
+{% endhighlight %}
+
+## Acc
+
+You will need to add the `asp-route-returnUrl="@ViewData["ReturnUrl"]"` attribute also to the folli
 
 Now everything is set up, you should be able to go to your client app, run it, click `Sign in`, go through the motions of signing in.
 
