@@ -12,6 +12,7 @@ tags:
 
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -113,7 +114,7 @@ We haven't configured any clients in the server yet, we will come back to do tha
 
 Hit `Ctrl+F5` again and you should see the same screen as before. Nothing should be different.
 
-For more details on configuration options with OpenIddict, see [Confniguration & Options](https://github.com/openiddict/core/wiki/Configuration-&-Options) on the OpenIddict github page.
+For more details on configuration options with OpenIddict, see [Configuration & Options](https://github.com/openiddict/core/wiki/Configuration-and-options) on the OpenIddict github page.
 
 ## What exactly is this code going to do, then?
 This code will create the endpoints necessary to receive authentication requests and issues cookies/tokens etc. Think of it as crating a listener in your app that will listen at points like:
