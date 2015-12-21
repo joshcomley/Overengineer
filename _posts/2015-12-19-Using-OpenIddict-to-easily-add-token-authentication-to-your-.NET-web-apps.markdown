@@ -14,6 +14,7 @@ tags:
 
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumed you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -227,7 +228,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerF
 
 For the above code to compile, you'll need to fill in the following variables:
 - YOUR_CLIENT_APP_ID
-  - This is just the ID of your client. For now you can just use something like "My Client", nice and professinal, like
+  - This is just the ID of your client, and it *cannot contain spaces*. For safety, best to just stick to letters. For now you can just use something like "MyClient", nice and professinal, like.
 - YOUR_CLIENT_APP_SECRET
   - Again, we're just getting this up and running so choose anything, but for production apps ensure this is kept absolutely private and is impossible to guess. Best to just use a random guid.
 - YOUR_CLIENT_APP_URL
@@ -443,7 +444,7 @@ using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbCon
         {
             Id = YOUR_CLIENT_APP_ID,
             DisplayName = "My client application",
-            RedirectUri = YOUR_AUTHORISATION_APP_URL + "/signin-oidc",
+            RedirectUri = YOUR_CLIENT_APP_URL + "/signin-oidc",
             LogoutRedirectUri = YOUR_CLIENT_APP_URL,
             Secret = Crypto.HashPassword(YOUR_CLIENT_APP_SECRET),
             Type = OpenIddictConstants.ApplicationTypes.Confidential
@@ -454,7 +455,7 @@ using (var context = app.ApplicationServices.GetRequiredService<ApplicationDbCon
 }
 {% endhighlight %}
 
-Again, you'll need to fill in the variables for `YOUR_AUTHORISATION_APP_URL` and `YOUR_CLIENT_APP_URL`, `YOUR_CLIENT_APP_ID` and `YOUR_CLIENT_APP_SECRET` exactly as before.
+Again, you'll need to fill in the variables for `YOUR_CLIENT_APP_URL`, `YOUR_CLIENT_APP_ID` and `YOUR_CLIENT_APP_SECRET` exactly as before.
 
 For now, we're hardcoding seeding our client app into our authorisation server's database. Later you might want to refactor this out.
 
