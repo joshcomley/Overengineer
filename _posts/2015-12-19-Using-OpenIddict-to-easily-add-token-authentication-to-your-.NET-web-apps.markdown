@@ -47,7 +47,11 @@ Lovely. So far, so Microsoft. Now let's start adding the *OpenIddict* stuff.
 
 Now we need to add `OpenIddict` to our `project.json`:
 
-![2015-12-19 21_34_37-AuthorisationServer - Microsoft Visual Studio (Administrator).png]({{site.baseurl}}/media/2015-12-19 21_34_37-AuthorisationServer - Microsoft Visual Studio (Administrator).png)
+{% highlight json %}
+  "dependencies": {
+    "OpenIddict": "1.0.0-*"
+  }
+{% endhighlight %}
 
 Great, save that and `OpenIddict` will automagically be installed. Finally time to plug in `OpenIddict` in the actual code of your new web app.
 
@@ -532,11 +536,39 @@ Now go back to Visual Studio, hit `Ctrl+F5` and your authorisation server should
 ![2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png)
 
 # Almost done...
-We just need to tweak a few things in the authorisation server's views, now.
-Now everything is set up, you should be able to go to your client app, run it, click `Sign in`, go through the motions of signing in 
+We just need to tweak a few things in the authorisation server's views. The login screen that comes with the `Individual Accounts` template contains a `Register as a new user?` link:
 
-# If something is broken
-If you try to run the project now get an error
+![2015-12-21 12_26_47-Log in - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-21 12_26_47-Log in - AuthorisationServer ‎- Microsoft Edge.png)
+
+By the time we get to this screen, we are in the `Authorisation App` and all the details about the client that would like to login are contained within URL parameters, like this:
+
+`http://localhost:51962/Account/Login?ReturnUrl=/connect/authorize?unique_id=zA6nvD8tPm59uHkpeDmCruYWTlEd-NoiaMhTkWpJbTc`
+
+As such, as we navigate around the `Authorisation App` we need to maintain these parameters so that `OpenIddict` knows what to do when we're logged in and where to redirect back to.
+
+For example, if our user would like to create a new account, they'll click the `Register as a new user?` link and be redirected to:
+
+`http://localhost:51962/Account/Register`
+
+This is no good, because now `OpenIddict` has lost all the information it needs.
+
+Thankfully, this is very simple.
+
+Open up `Login.cshtml` in your `Authorisation App`, and replace the following line:
+
+{% highlight aspx-cs %}
+<a asp-action="Register">Register as a new user?</a>
+{% endhighlight %}
+
+With this one:
+
+{% highlight aspx-cs %}
+<a asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+{% endhighlight %}
+
+*In other words*, wherever you need to fix a link like this, simply add this attribute: `asp-route-returnUrl="@ViewData["ReturnUrl"]"`
+
+Now everything is set up, you should be able to go to your client app, run it, click `Sign in`, go through the motions of signing in.
 
 {% highlight c# %}
 app.UseOAuthValidation();
