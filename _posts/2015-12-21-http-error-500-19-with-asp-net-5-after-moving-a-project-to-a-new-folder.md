@@ -17,7 +17,7 @@ To resolve this, I did two things.
 
 # Kill IIS Express
 
-<img src="{{site.baseurl}}/media/2015-12-21 11_44_11-Run.png" width="200" />
+<img src="{{site.baseurl}}/media/2015-12-21 11_44_11-Run.png" width="35%" />
 
 # Restart Visual Studio
 
