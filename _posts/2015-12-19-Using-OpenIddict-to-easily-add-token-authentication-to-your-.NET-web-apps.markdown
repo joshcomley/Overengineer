@@ -548,7 +548,10 @@ This is no good, because now `OpenIddict` has lost all the information it needs.
 
 Thankfully, this is very simple.
 
-In the `Authorisation App`, open up the following files and update the code as described.
+I have also submitted an issue to the ASP.NET templates project to add support for this:
+<https://github.com/aspnet/Templates/issues/359>
+
+For now, in the `Authorisation App`, open up the following files and update the code as described.
 
 ## Login.cshtml
 Add the `asp-route-returnUrl="@ViewData["ReturnUrl"]"` to the `Register as a new user?` link:
