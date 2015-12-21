@@ -529,7 +529,9 @@ Now go back to Visual Studio, hit `Ctrl+F5` and your authorisation server should
 ![2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-20 16_14_36-Home Page - AuthorisationServer ‎- Microsoft Edge.png)
 
 # Almost done...
-We just need to tweak a few things in the authorisation server's views. The login screen that comes with the `Individual Accounts` template contains a `Register as a new user?` link:
+We just need to tweak a few things in the authorisation server's views.
+
+The login screen that comes with the `Individual Accounts` template contains a `Register as a new user?` link:
 
 ![2015-12-21 12_26_47-Log in - AuthorisationServer ‎- Microsoft Edge.png]({{site.baseurl}}/media/2015-12-21 12_26_47-Log in - AuthorisationServer ‎- Microsoft Edge.png)
 
@@ -553,7 +555,7 @@ In the `Authorisation App`, open up the following files and update the code as d
 Add the `asp-route-returnUrl="@ViewData["ReturnUrl"]"` to the `Register as a new user?` link:
 
 {% highlight aspx-cs %}
-<a asp-action="Register" asp-route-returnUrl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+<a asp-action="Register" asp-route-returnUrl="@ViewData["returnUrl"]">Register as a new user?</a>
 {% endhighlight %}
 
 ## Register.cshtml
@@ -572,8 +574,11 @@ Update your `Register` GET and POST methods to accept the `returnUrl` parameter 
 // GET: /Account/Register
 [HttpGet]
 [AllowAnonymous]
-public IActionResult Register(string returnUrl = null)
+public IActionResult Register(
+    // Add this parameter
+    string returnUrl = null)
 {
+    // Add this assignment
     ViewData["ReturnUrl"] = returnUrl;
     return View();
 }
@@ -585,8 +590,11 @@ public IActionResult Register(string returnUrl = null)
 [HttpPost]
 [AllowAnonymous]
 [ValidateAntiForgeryToken]
-public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+public async Task<IActionResult> Register(RegisterViewModel model,
+    // Add this parameter
+    string returnUrl = null)
 {
+    // Add this assignment
     ViewData["ReturnUrl"] = returnUrl;
     ...
 }
