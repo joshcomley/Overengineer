@@ -32,5 +32,4 @@ The gotcha lies in the fact that unlike traditional project names, in ASP.NET vN
 It's this:
 
 ![2016-01-15 16_29_45-src.png]({{site.baseurl}}/media/2016-01-15 16_29_45-src.png)
-
 Yep, it's the folder name. Make the `commands` > `web` entry in your `project.json` match the folder name and you'll be good to go.
