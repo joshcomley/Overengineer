@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: "Gotcha: Unable to load application or execute command 'YourProjectName'"
 ---
+
 
 I was recently stuck with a problem whereby neither IIS Express nor Kestrel would load my project.
 
@@ -32,5 +34,3 @@ It's this:
 ![2016-01-15 16_29_45-src.png]({{site.baseurl}}/media/2016-01-15 16_29_45-src.png)
 
 Yep, it's the folder name. Make the `commands` > `web` entry in your `project.json` match the folder name and you'll be good to go.
-
-
