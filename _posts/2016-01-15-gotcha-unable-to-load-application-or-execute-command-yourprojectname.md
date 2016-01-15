@@ -11,7 +11,7 @@ title: "Gotcha: Unable to load application or execute command 'YourProjectName'"
 
 I was recently stuck with a problem whereby neither IIS Express nor Kestrel would load my project.
 
-IIS Express would just hang on a spinning loading icon in Chrome, whereas `kestrel` would at least deliver me the following:
+IIS Express would just hang on a spinning loading icon in Chrome, whereas Kestrel would at least deliver me the following:
 
     Error: Unable to load application or execute command 'YourProjectName'. Available commands: kestrel, web, ef.
 
