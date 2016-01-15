@@ -13,7 +13,7 @@ I was recently stuck with a problem whereby neither IIS Express nor Kestrel woul
 
 IIS Express would just hang on a spinning loading icon in Chrome, whereas `kestrel` would at least deliver me the following:
 
-    Error: Unable to load application or execute command 'AuthorisationServer2'. Available commands: kestrel, web, ef.
+    Error: Unable to load application or execute command 'YourProjectName'. Available commands: kestrel, web, ef.
 
 # Short answer
 Your project name in ASP.NET vNext is the *folder* name that contains your project files, *not* the project name of your Visual Studio project.
