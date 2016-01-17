@@ -18,4 +18,9 @@ title: vNext cheat sheet
     
     // Upgrades your installed .NET runtime version to the latest UNSTABLE
     dnvm upgrade -u
-
+    
+    // Upgrades your installed .NET core runtime version to the latest STABLE
+    dnvm upgrade -r coreclr
+    
+    // Upgrades your installed .NET core runtime version to the latest UNSTABLE
+    dnvm upgrade -r coreclr -u
