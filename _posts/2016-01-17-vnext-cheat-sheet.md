@@ -9,7 +9,7 @@ title: vNext cheat sheet
 ---
 
 
-(this blog post will be added to over time, and is initially for my own use as a cheat sheet to remember all the new vNext details, because, well, the only thing that hasn't changed is the colour of Visual Studio)
+(this tiny blog post will be added to over time, and is initially for my own use as a cheat sheet to remember all the new vNext details, because, well, the only thing that hasn't changed is the colour of Visual Studio)
 
 # DNVM
 ## Dot Net Version Manager
