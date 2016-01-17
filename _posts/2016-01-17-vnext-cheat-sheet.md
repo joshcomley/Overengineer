@@ -12,9 +12,9 @@ title: vNext cheat sheet
 (this tiny blog post will be added to over time, and is initially for my own use as a cheat sheet to remember all the new vNext details, because, well, the only thing that hasn't changed is the colour of Visual Studio)
 
 # DNVM
-## Dot Net Version Manager
+##Dot Net Version Manager
 <https://github.com/aspnet/Home/wiki/Version-Manager>
-### Commands
+###Commands
     // Upgrades your installed .NET runtime version to the latest STABLE
     dnvm upgrade
     
