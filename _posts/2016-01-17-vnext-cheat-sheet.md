@@ -9,6 +9,7 @@ title: vNext cheat sheet
 ---
 
 
+
 (this tiny blog post will be added to over time, and is initially for my own use as a cheat sheet to remember all the new vNext details, because, well, the only thing that hasn't changed is the colour of Visual Studio)
 
 # DNVM
@@ -29,3 +30,6 @@ title: vNext cheat sheet
     
     // Upgrades your installed .NET core runtime version to the latest UNSTABLE
     dnvm upgrade -r coreclr -u
+    
+    // Architecture (apply to any of the above)
+    dnvm upgrade [-x86][-x64]
