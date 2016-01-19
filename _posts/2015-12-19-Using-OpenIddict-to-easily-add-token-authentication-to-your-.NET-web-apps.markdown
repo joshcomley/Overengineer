@@ -30,7 +30,10 @@ Add this to the `Startup.cs` in your OpenIddict server app:
     {
         x.ForwardedOptions = ForwardedHeaders.All;
     });
-        
+    
+This middleware retrieves the transport security protocol from the proxy headers and restores the real scheme.
+
+For instance, if you are using IIS and Kestrel, the communication between the two is made without SSL, so the connection is reported as HTTP-only.        
 **EndEdit: 19/01/2016**
 
 We will make this first, so as promised, fire up Visual Studio and click `File -> New project` and choose `ASP.NET Web Application`:
