@@ -14,6 +14,7 @@ tags:
 
 
 
+
 [OpenIddict](https://github.com/openiddict) is a quick and easy way to get your web application talking to an authorisation server using OAuth.
 
 This article assumes you already know what it is, so I'm going to dive straight into talking about each step required to get your authorisation server up and running, starting from `File -> New project` for both the authorisation server and the client web app.
@@ -21,6 +22,16 @@ This article assumes you already know what it is, so I'm going to dive straight 
 Let's go.
 
 # Authorisation Server
+
+**Edit: 19/01/2016**
+Add this to the `Startup.cs` in your OpenIddict server app:
+
+    app.UseOverrideHeaders(x =>
+    {
+        x.ForwardedOptions = ForwardedHeaders.All;
+    });
+        
+**EndEdit: 19/01/2016**
 
 We will make this first, so as promised, fire up Visual Studio and click `File -> New project` and choose `ASP.NET Web Application`:
 
