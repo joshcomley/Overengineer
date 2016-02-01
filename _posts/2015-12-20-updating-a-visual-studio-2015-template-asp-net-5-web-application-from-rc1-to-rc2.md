@@ -13,6 +13,7 @@ title: Updating a Visual Studio 2015 template ASP.NET 5 web application from RC1
 
 
 
+
 There are a few gotchas when migrating Visual Studio 2015's ASP.NET 5 web application template from `RC1` to `RC2`.
 
 This quick guide will help you through them.
@@ -127,5 +128,17 @@ This particular example ensures that in developer environments, you see useful e
 For this to work in `RC2`, you'll need to add a new environment variable to be sure your `env` *is* `Development`. Go to your project properties, click on the `Debug` tab and add an `Environment Variable` called `ASPNET_ENV` with a value of `Development`:
 
 ![2015-12-20 16_27_01-Photos.png]({{site.baseurl}}/media/2015-12-20 16_27_01-Photos.png)
+
+## hosting.json
+
+Finally, RC2 expects a `hosting.json` file to be in the root of your project. This file configures how your application will be hosted. Create a file with that name and the following contents:
+
+{% highlight json %}
+{
+  "server": "Microsoft.AspNet.Server.Kestrel"
+}
+{% endhighlight %}
+
+This `hosting.json` will use Kestrel to serve your app, as you can see.
 
 Now your application should run as expected. Enjoy!
