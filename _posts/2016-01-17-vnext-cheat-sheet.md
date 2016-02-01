@@ -11,6 +11,7 @@ title: vNext cheat sheet
 
 
 
+
 (this tiny blog post will be added to over time, and is initially for my own use as a cheat sheet to remember all the new vNext details, because, well, the only thing that hasn't changed is the colour of Visual Studio)
 
 # DNVM
@@ -47,3 +48,5 @@ title: vNext cheat sheet
     // Updates the database with the latest migrations 
     dnx ef database update
     
+    // Adds a migration with the name "MyMigration"
+    dnx ef migrations add MyMigration
