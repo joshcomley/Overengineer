@@ -25,26 +25,66 @@ Run through the following check-list to ensure you have absolutely everything co
 This seems to be just in Chrome, but loading your HTML5 video will fail *if* you have `crossOrigin` set, but your video and your client are on a different *port* **and** you are **not** on `https`
 
 e.g.:<br/>
-**FAIL**<br/>
-Client at http://www.myapp.com/player.html:
+**THIS WILL FAIL**<br/>
+Client at **http://www.myapp.com/player.html**:
 
     <video crossOrigin="anonymous" src="http://cdn.myapp.com:81/video.mp4"></video>
 
 **SUCCESS**<br/>
-Client at http://www.myapp.com/player.html:
+Client at **http://www.myapp.com/player.html**:
 
     <video crossOrigin="anonymous" src="https://cdn.myapp.com:81/video.mp4"></video>
 
-<h1>Timing</h1>
-`getImageData()` and `toDataURL()` will be security blocked *unless*:
+(the `src` is set to `https` in the successful example)
 
-- **crossorigin** is set to `anonymous` or `use-credentials` ([as defined here][1]) **before** the video is loaded. If you do this too late, it will still fail.
+<h1>Timing</h1>
+`getImageData()` and `toDataURL()` will be security blocked *unless* **crossorigin** is set to `anonymous` or `use-credentials` ([as defined here][1]) **before** the video is loaded. You can achieve this either by adding `crossOrigin` directly to the HTML element, or ensuring that javascript sets it **before** the `src` is loaded:
+
+**THIS WILL FAIL**<br/>
+{% highlight javascript %}
+    vid.src = "...";
+    vid.load();
+    vid.crossOrigin = "anonymous";
+{% endhighlight %}
+
+**THIS WILL SUCCEED**<br/>
+{% highlight javascript %}
+    vid.src = "...";
+    vid.load();
+    vid.crossOrigin = "anonymous";
+{% endhighlight %}
+
+**THIS WILL SUCCEED**<br/>
+{% highlight html %}
+    <video crossOrigin="anonymous" controls></video>
+{% endhighlight %}
+{% highlight javascript %}
+    vid.src = "...";
+    vid.load();
+{% endhighlight %}
 
 <h1>Spelling</h1>
 If you are going to set `crossOrigin` in javascript, be sure to use the correct casing for the javascript property: `crossOrigin` (NOT `crossorigin`)
   [1]: https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
-  
+
+**THIS WILL FAIL**<br/>
+{% highlight javascript %}
+    vid.crossorigin = "anonymous";
+    vid.src = "...";
+    vid.load();
+{% endhighlight %}
+
+**THIS WILL SUCCEED**<br/>
+{% highlight javascript %}
+    vid.crossOrigin = "anonymous";
+    vid.src = "...";
+    vid.load();
+{% endhighlight %}
+
 <h1>Serving of data</h1>
 You will need your CDN to deliver your video with the `Access-Control-Allow-Origin` set to something useful for you. For more details on this header [see here](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS), but to test you can use `*` as a value (highly dangerous, not recommended for production) otherwise you must specify the domain of your client, in the examples case above the header would look like:
 
 `Access-Control-Allow-Origin:http://www.myapp.com`
+
+<h1>Everything should now work</h1>
+Providing you have met all of these requirements, you should be good to go. Happy CORSing!
