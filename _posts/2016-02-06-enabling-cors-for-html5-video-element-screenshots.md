@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: Enabling CORS for HTML5 video element screenshots
 ---
+
 
 Or: Preventing `Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.`
 
