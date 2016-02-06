@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: Preventing AngularJS from caching your templates and other files
 ---
+
 
 In development it can be very useful to be able to ensure that your server files aren't cached.
 
