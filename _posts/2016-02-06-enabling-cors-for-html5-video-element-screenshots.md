@@ -26,14 +26,14 @@ You are trying to take a screenshot of a HTML5 video element, from a video that 
 Run through the following check-list to ensure you have absolutely everything configured correctly.
 
 <h1>Chrome</h1>
-This seems to be just in Chrome, but just *loading* your HTML5 video will fail *if* you have `crossOrigin` set, but your video is being served from any port other than *80* **and** you are **not** on `https`:
+This seems to be just in Chrome, but even just *loading* your HTML5 video will fail if your video is being served from *any* port other than *80* ***and*** is **not** using `https`:
 
 **THIS WILL FAIL**<br/>
 Client at **http://www.myapp.com/player.html**:
 
     <video crossOrigin="anonymous" src="http://cdn.myapp.com:81/video.mp4"></video>
 
-**SUCCESS**<br/>
+**THIS WILL SUCCEED**<br/>
 Client at **http://www.myapp.com/player.html**:
 
     <video crossOrigin="anonymous" src="https://cdn.myapp.com:81/video.mp4"></video>
