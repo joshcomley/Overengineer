@@ -16,9 +16,11 @@ Or:
 <h1>Scenario</h1>
 You are trying to take a screenshot of a HTML5 video element, from a video that is on a different domain, and you are getting a security error similar to the above.
 
-For example:
+For example:<br/>
+Your video playing client is here:<br/>
 <http://www.myapp.com/player.html><br/>
-<http://cdn.myapp.com>
+Your video is being served from here:<br/>
+<http://cdn.myapp.com/video.mp4>
 
 <h1>The solution</h1>
 Run through the following check-list to ensure you have absolutely everything configured correctly.
