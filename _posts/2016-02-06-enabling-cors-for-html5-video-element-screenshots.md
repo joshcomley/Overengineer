@@ -9,7 +9,9 @@ title: Enabling CORS for HTML5 video element screenshots
 ---
 
 
-Or: Preventing `Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.`
+Or:
+
+*Preventing **Uncaught SecurityError: Failed to execute 'toDataURL' on 'HTMLCanvasElement': Tainted canvases may not be exported.***
 
 <h1>Scenario</h1>
 You are trying to take a screenshot of a HTML5 video element, from a video that is on a different domain, and you are getting a security error similar to the above.
