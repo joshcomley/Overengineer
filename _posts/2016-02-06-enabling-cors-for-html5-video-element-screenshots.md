@@ -19,7 +19,7 @@ For example:
 <http://cdn.myapp.com>
 
 <h1>The solution</h1>
-Run through the following check-list to ensure you have absolutely configured things correctly, and you should find your screenshots now work.
+Run through the following check-list to ensure you have absolutely everything configured correctly.
 
 <h1>Chrome</h1>
 This seems to be just in Chrome, but loading your HTML5 video will fail *if* you have `crossOrigin` set, but your video and your client are on a different *port* **and** you are **not** on `https`
