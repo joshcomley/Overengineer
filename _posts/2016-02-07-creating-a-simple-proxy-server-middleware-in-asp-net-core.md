@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: Creating a simple proxy server middleware in ASP.NET Core
 ---
+
 
 Sometimes it is useful, especially for myself under certain development environment conditions, to use a proxy server.
 
