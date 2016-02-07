@@ -127,7 +127,7 @@ namespace YourWebApp.Middleware.Proxy
 {% highlight c# %}
 using Microsoft.AspNet.Builder;
 
-namespace AngularOidcClient.Middleware.Proxy
+namespace YourWebApp.Middleware.Proxy
 {
     public static class ProxyServerMiddlewareExtension
     {
