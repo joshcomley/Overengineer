@@ -144,8 +144,13 @@ namespace YourWebApp.Middleware.Proxy
 {% highlight c# %}
     public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
-        // Add this line to the top of your Configure method
-        app.UseProxyServer();
+        // Add this to the top of your Configure method
+        // I am using this dev environment check because I don't recommend enabling
+        // this in a production environment
+        if (env.IsDevelopment())
+        {
+            app.UseProxyServer();
+        }
         ...
     }
 {% endhighlight %}
