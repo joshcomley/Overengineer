@@ -13,15 +13,15 @@ Sometimes it is useful, especially for myself under certain development environm
 
 Below is an implementation you can adapt to your needs.
 
-Suppose we have a file at **http://cdn.myapp.com/movie.mp4**.
+*Suppose we have a file at **http://cdn.myapp.com/movie.mp4***
 
-Suppose we have a web app at **http://www.myapp.com/**.
+*Suppose we have a web app at **http://www.myapp.com/***
 
-Suppose we want to have the **web app** serve a file from the CDN.
+*Suppose we want to have the **web app** serve a file from the CDN.*
 
 In this case, this middleware proxy would work by making a request to:
 
-**http://www.myapp.com/proxy?url=http://cdn.myapp.com/movie.mp4**
+***http://www.myapp.com/proxy?url=http://cdn.myapp.com/movie.mp4***
 
 In my case this was to bypass security restrictions that were only applicable in development environments. As such, this proxy has not been tested thoroughly for performance etc., as I will never use it in production. Feel free to contribute suggestions in the comments.
 
