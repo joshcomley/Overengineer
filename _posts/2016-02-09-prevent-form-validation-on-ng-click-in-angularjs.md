@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: "Prevent form validation on ng-click in AngularJS"
 ---
+
 
 With the following HTML, validation on your form will be triggered every time you click on either button:
 
