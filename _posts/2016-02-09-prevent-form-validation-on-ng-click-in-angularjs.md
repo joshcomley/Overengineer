@@ -23,8 +23,7 @@ But we don't necessarily want that to happen for our "Say hi" button. So how do 
 
 Well, according to the [W3 specification on `button` elements](https://www.w3.org/TR/html401/interact/forms.html#h-17.5), if you don't specify a `type="[something]"` for your button, then it will default to `type="submit"`:
 
-<img src="{{site.baseurl}}/media/2016-02-09 16_52_30-Forms in HTML documents.png" width="300" />
-![2016-02-09 16_52_30-Forms in HTML documents.png]({{site.baseurl}}/media/2016-02-09 16_52_30-Forms in HTML documents.png)
+<img src="{{site.baseurl}}/media/2016-02-09 16_52_30-Forms in HTML documents.png" width="500" />
 
 In such a case, any click to this button, no matter what `ng-click` says, will submit the form. And submitting the form will trigger validation. The solution? Make sure it's type isn't `submit`:
 
