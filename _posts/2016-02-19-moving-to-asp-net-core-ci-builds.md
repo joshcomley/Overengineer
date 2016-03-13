@@ -30,4 +30,9 @@ https://www.myget.org/F/aspnetcidev/api/v2
 
 `dnvm install -r coreclr latest -u`
 
+`dnvm install -r coreclr -arch x64 latest -u`
+
+Install dotnet CLI:
+https://github.com/dotnet/cli
+
 https://dotnetcli.blob.core.windows.net/dotnet/dev/Installers/Latest/dotnet-win-x64.latest.msi
