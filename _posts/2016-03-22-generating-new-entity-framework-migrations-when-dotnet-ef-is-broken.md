@@ -36,3 +36,9 @@ codeFirstMigrations.Add("NameOfTheMigration");
 {% endhighlight %}
 
 3 - Run the console app, you should have a screen a bit like this:
+
+![2016-03-22 20_11_51-C__Windows_system32_cmd.exe.png]({{site.baseurl}}/media/2016-03-22 20_11_51-C__Windows_system32_cmd.exe.png)
+
+Feel free to contribute to the open source project with pull requests, adding other tools from the Entity Framework commands as you might need. I am sure I'll add a few over time.
+
+Enjoy!
