@@ -2,10 +2,12 @@
 layout: blog
 category: blog
 splash: ""
-tags: null
-published: false
+tags: 
+  - "null"
+published: true
 title: "Generating new Entity Framework migrations when dotnet-ef is broken"
 ---
+
 
 `dotnet-ef` is a handy too to generate Entity Framework migrations and save them to disk.
 
