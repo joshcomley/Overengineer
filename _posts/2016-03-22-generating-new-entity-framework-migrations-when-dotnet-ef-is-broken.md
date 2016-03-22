@@ -24,4 +24,15 @@ Right now it only is able to add a migration.
 [https://www.nuget.org/packages/Brandless.EntityFrameworkCore.Migrations]
 
 ### Usage
-Create a new console application in the same project as your context.
+
+1 - Create a new console application in the same solution as your data context, and reference the project that contains your data context in your new console app.
+
+2 - In your `Main()` method, add the below code, exchanging the variables to suit your environment:
+
+{% highlight c# %}
+var projectPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\YourApp.DataContext"));
+var codeFirstMigrations = new CodeFirstMigrations<YourDbContext>(projectPath);
+codeFirstMigrations.Add("NameOfTheMigration");
+{% endhighlight %}
+
+3 - Run the console app, you should have a screen a bit like this:
