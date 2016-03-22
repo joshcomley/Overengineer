@@ -20,10 +20,10 @@ I have put such a package together.
 Right now it only is able to add a migration.
 
 ### Source code can be found here
-[https://github.com/joshcomley/BrandlessOpen/tree/master/Code/dnx/Brandless.EntityFrameworkCore.Migrations]
+<https://github.com/joshcomley/BrandlessOpen/tree/master/Code/dnx/Brandless.EntityFrameworkCore.Migrations>
 
 ### Nuget package can be found here
-[https://www.nuget.org/packages/Brandless.EntityFrameworkCore.Migrations]
+<https://www.nuget.org/packages/Brandless.EntityFrameworkCore.Migrations>
 
 ### Usage
 
