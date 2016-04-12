@@ -10,6 +10,7 @@ title: Moving to ASP.NET Core CI builds
 
 
 
+
 # Environment variable:
 DNX_UNSTABLE_FEED
 https://www.myget.org/F/aspnetcidev/api/v2
@@ -36,3 +37,4 @@ Install dotnet CLI:
 https://github.com/dotnet/cli
 
 https://dotnetcli.blob.core.windows.net/dotnet/dev/Installers/Latest/dotnet-win-x64.latest.msi
+https://dotnetcli.blob.core.windows.net/dotnet/beta/Installers/Latest/dotnet-dev-win-x64.latest.exe
