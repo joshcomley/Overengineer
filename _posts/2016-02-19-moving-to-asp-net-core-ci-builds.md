@@ -11,6 +11,7 @@ title: Moving to ASP.NET Core CI builds
 
 
 
+
 # Environment variable:
 DNX_UNSTABLE_FEED
 https://www.myget.org/F/aspnetcidev/api/v2
@@ -28,6 +29,8 @@ https://www.myget.org/F/aspnetcidev/api/v2
 </configuration>
 
 `dnvm upgrade -u`
+
+`dnvm upgrade -u -arch x64`
 
 `dnvm install -r coreclr latest -u`
 
