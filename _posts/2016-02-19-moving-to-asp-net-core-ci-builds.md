@@ -12,6 +12,7 @@ title: Moving to ASP.NET Core CI builds
 
 
 
+
 # Environment variable:
 DNX_UNSTABLE_FEED
 https://www.myget.org/F/aspnetcidev/api/v2
@@ -27,6 +28,8 @@ https://www.myget.org/F/aspnetcidev/api/v2
     <add key="AspNetvNext" value="https://www.myget.org/F/aspnetvnext/api/v3/index.json" />
   </packageSources>
 </configuration>
+
+`dotnet publish -c Release -o ./approot`
 
 `dnvm upgrade -u`
 
