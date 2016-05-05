@@ -16,12 +16,18 @@ Then I recommend following these steps:
 
 <https://nodejs.org/en/download/>
 
-## Ensure you have the 
+## Ensure you have the latest version of npm (Node Package Manager)
 
- Tools -> Options -> Project and Solutions -> External Web Tools -> move $(PATH) up on level so it is over $(DevEnvDir)
+From cmd:
+
+`npm install -g npm`
+
+This should ensure the `node_modules` folder is now served flat not fat.
+
+## Ensure Visual Studio's preference for the node_modules folder is "global first"
+
+`Tools -> Options -> Project and Solutions -> External Web Tools` -> move $(PATH) up on level so it is on top of $(DevEnvDir):
  
- ![2016-05-05 14_45_54-Options.png]({{site.baseurl}}/media/2016-05-05 14_45_54-Options.png)
+![2016-05-05 15_02_05-Options.png]({{site.baseurl}}/media/2016-05-05 15_02_05-Options.png)
 
-Run this:
-
-npm install -g npm
+That's it, you should have the problem solved.
