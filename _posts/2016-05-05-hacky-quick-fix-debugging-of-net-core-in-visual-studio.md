@@ -89,7 +89,7 @@ So, overall this is VERY primitive, but here's what it does:
 - It saves all documents open in VS first, just like a normal build
 - It finds the current startup project
 - It tries to find the `launchSettings.json` for the current startup project and looks for a "launchUrl" specifically at the following JSON path: `\profiles\IIS Express\launchUrl`
-- It looks for the exe to run as `"bin\Debug\netstandardapp1.5\win81-x64\" + projectName + ".exe"`, where project name is without any extensions, just the folder name of the project. You can modify this behaviour as needed in `GetProjectExe(..)`
+- It publishes the app to: `[project-path]\..\.vcmd\[project-name]`, so be sure to add `.vcmd/` to your `.gitignore`
 - It also tries to call an `onbeforerun.bat` and an `onrun.bat` so you can inject some stuff if you want
 - It calls `dotnet restore` and then `dotnet build` *every* time
 - It receives the output from your exe and looks for `Now listening on:` as a cue to launch the launch URL
@@ -113,12 +113,18 @@ public class C : VisualCommanderExt.ICommand
 	{
 		DTE.Documents.SaveAll();
 		var startupProjectFile = GetStartupProject(DTE);
-		var exe = GetProjectExe(DTE, startupProjectFile);
 		ProjectPath = Path.GetDirectoryName(startupProjectFile);
+		var projectName = Path.GetFileName(ProjectPath);
+		var vcmdFolder = Path.GetFullPath(Path.Combine(ProjectPath, "..\\.vcmd"));
+
+		SetHidden(vcmdFolder);
+
+		var outputFolder = Path.Combine(vcmdFolder, projectName);
+		outputFolder = Path.GetFullPath(Path.Combine(ProjectPath, outputFolder));
+		var exe = Path.Combine(outputFolder, projectName) + ".exe";
 
 		TryRun("onbeforerun.bat", true);
 
-		var projectName = Path.GetFileName(ProjectPath);
 		var existingProcesses = System.Diagnostics.Process.GetProcessesByName(projectName);
 		foreach (var existingProcess in existingProcesses)
 		{
@@ -129,7 +135,7 @@ public class C : VisualCommanderExt.ICommand
 		DotNet("restore");
 
 		// Call "dotnet build"
-		DotNet("build");
+		DotNet("publish -c Debug -o \"" + outputFolder + "\"");
 
 		var process = new System.Diagnostics.Process();
 		process.OutputDataReceived += (sender, args) =>
@@ -167,11 +173,11 @@ public class C : VisualCommanderExt.ICommand
 							url = url.TrimEnd('/') + "/" + settingsUrl.TrimStart('/');
 						}
 					}
-
+					url = url.Trim();
 				}
 				if (!string.IsNullOrWhiteSpace(url))
 				{
-					System.Diagnostics.Process.Start("explorer", url);
+					System.Diagnostics.Process.Start("explorer", "\"" + url + "\"");
 				}
 			}
 		};
@@ -189,10 +195,26 @@ public class C : VisualCommanderExt.ICommand
 		{
 			if (proc.ProcessID == process.Id)
 			{
-            	// Comment out this line if you want just "Run" functionality
 				proc.Attach();
 				return;
 			}
+		}
+	}
+
+	void SetHidden(string folder)
+	{
+		if (!Directory.Exists(folder))
+		{
+			Directory.CreateDirectory(folder);
+		}
+
+		DirectoryInfo di = new DirectoryInfo(folder);
+
+		// See if directory has hidden flag, if not, make hidden
+		if ((di.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden)
+		{
+			// Add Hidden flag    
+			di.Attributes |= FileAttributes.Hidden;
 		}
 	}
 
@@ -239,15 +261,6 @@ public class C : VisualCommanderExt.ICommand
 			break;
 		}
 		return projectFile;
-	}
-
-	public string GetProjectExe(EnvDTE80.DTE2 DTE, string projectFile)
-	{
-		var projectPath = Path.GetDirectoryName(projectFile);
-		var projectName = Path.GetFileName(projectPath);
-		var guess = @"bin\Debug\netstandardapp1.5\win81-x64\" + projectName + ".exe";
-		var finalExePath = Path.Combine(projectPath, guess);
-		return finalExePath;
 	}
 }
 {% endhighlight %}
