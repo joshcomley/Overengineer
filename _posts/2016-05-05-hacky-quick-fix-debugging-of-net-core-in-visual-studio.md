@@ -93,7 +93,7 @@ So, overall this is VERY primitive, but here's what it does:
 - It also tries to call an `onbeforerun.bat` and an `onrun.bat` so you can inject some stuff if you want
 - It calls `dotnet restore` and then `dotnet build` *every* time
 
-## Code:
+## Code for the Visual Commander command(s):
 
 {% highlight c# %}
 using EnvDTE;
