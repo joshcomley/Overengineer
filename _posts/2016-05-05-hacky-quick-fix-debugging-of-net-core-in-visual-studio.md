@@ -49,7 +49,7 @@ Finally, if you want to have debugging right from your entry point (e.g. `Progra
 
 	public static void Main(string[] args)
 	{
-		args = DotNetRunner.AppStart(args);
+        args = DotNetRunner.AppStart(args);
         ...
     }
 
