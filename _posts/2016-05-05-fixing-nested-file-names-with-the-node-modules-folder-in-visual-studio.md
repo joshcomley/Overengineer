@@ -3,7 +3,7 @@ layout: blog
 category: blog
 splash: ""
 tags: ""
-published: false
+published: true
 title: Fixing nested file names with the node_modules folder in Visual Studio
 ---
 If you get this:
