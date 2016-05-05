@@ -92,6 +92,7 @@ So, overall this is VERY primitive, but here's what it does:
 - It looks for the exe to run as `"bin\Debug\netstandardapp1.5\win81-x64\" + projectName + ".exe"`, where project name is without any extensions, just the folder name of the project. You can modify this behaviour as needed in `GetProjectExe(..)`
 - It also tries to call an `onbeforerun.bat` and an `onrun.bat` so you can inject some stuff if you want
 - It calls `dotnet restore` and then `dotnet build` *every* time
+- It receives the output from your exe and looks for `Now listening on:` as a cue to launch the launch URL
 
 ## Code for the Visual Commander command(s):
 
