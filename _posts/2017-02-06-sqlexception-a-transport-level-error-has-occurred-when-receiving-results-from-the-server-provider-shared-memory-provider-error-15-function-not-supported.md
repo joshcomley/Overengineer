@@ -15,9 +15,9 @@ The solution for me was to open *SQL Server Configuration Manager*:
 
 ![2017-02-06 02_31_32-Cortana.png]({{site.baseurl}}/media/2017-02-06 02_31_32-Cortana.png)
 
-Then navigate to the *SQL Server Network Configuration* and disable "Shared Memory":
+Then navigate to the *SQL Server Network Configuration* and disable "Shared Memory", but make sure you leave one of the others on so SQL Server can communicate **somehow**:
 
-![2017-02-06 02_55_45-2017-02-06 02_52_07-Sql Server Configuration Manager2.png - paint.net 4.0.13.png]({{site.baseurl}}/media/2017-02-06 02_55_45-2017-02-06 02_52_07-Sql Server Configuration Manager2.png - paint.net 4.0.13.png)
+![2017-02-06 03_04_27-Manage your account - Hazception.png]({{site.baseurl}}/media/2017-02-06 03_04_27-Manage your account - Hazception.png)
 
 Then just head over to your SQL Server instance and restart it:
 
