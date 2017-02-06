@@ -23,3 +23,4 @@ Then just head over to your SQL Server instance and restart it:
 
 ![2017-02-06 03_30_12-the overengineer.png]({{site.baseurl}}/media/2017-02-06 03_30_12-the overengineer.png)
 
+Now re-run your app, things should be cushty.
