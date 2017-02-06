@@ -21,4 +21,5 @@ Then navigate to the *SQL Server Network Configuration* and disable "Shared Memo
 
 Then just head over to your SQL Server instance and restart it:
 
-![2017-02-06 02_57_50-Editing _posts_2017-02-06-sqlexception-a-transport-level-error-has-occurred-when.png]({{site.baseurl}}/media/2017-02-06 02_57_50-Editing _posts_2017-02-06-sqlexception-a-transport-level-error-has-occurred-when.png)
+![2017-02-06 03_30_12-the overengineer.png]({{site.baseurl}}/media/2017-02-06 03_30_12-the overengineer.png)
+
