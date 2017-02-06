@@ -1,7 +1,7 @@
 ---
 layout: blog
 category: blog
-published: false
+published: true
 title: >-
   SqlException: A transport-level error has occurred when receiving results from
   the server. (provider: Shared Memory Provider, error: 15 - Function not
