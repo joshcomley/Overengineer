@@ -13,5 +13,12 @@ A common suggestion is to install .NET 4.6.2, but for me this didn't work as the
 
 The solution for me was to open *SQL Server Configuration Manager*:
 
+![2017-02-06 02_31_32-Cortana.png]({{site.baseurl}}/media/2017-02-06 02_31_32-Cortana.png)
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
+Then navigate to the *SQL Server Network Configuration* and disable "Shared Memory":
+
+![2017-02-06 02_55_45-2017-02-06 02_52_07-Sql Server Configuration Manager2.png - paint.net 4.0.13.png]({{site.baseurl}}/media/2017-02-06 02_55_45-2017-02-06 02_52_07-Sql Server Configuration Manager2.png - paint.net 4.0.13.png)
+
+Then just head over to your SQL Server instance and restart it:
+
+![2017-02-06 02_57_50-Editing _posts_2017-02-06-sqlexception-a-transport-level-error-has-occurred-when.png]({{site.baseurl}}/media/2017-02-06 02_57_50-Editing _posts_2017-02-06-sqlexception-a-transport-level-error-has-occurred-when.png)
