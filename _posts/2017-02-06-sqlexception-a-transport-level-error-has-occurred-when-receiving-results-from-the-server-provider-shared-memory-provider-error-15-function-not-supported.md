@@ -13,6 +13,7 @@ A common suggestion is to install .NET 4.6.2, but for me this didn't work as the
 
 The solution for me was to open *SQL Server Configuration Manager*:
 
+<img src="{{site.baseurl}}/media/2017-02-06 02_31_32-Cortana2.png" alt="Abc" />
 ![2017-02-06 02_31_32-Cortana2.png]({{site.baseurl}}/media/2017-02-06 02_31_32-Cortana2.png =200x200)
 
 Then navigate to the *SQL Server Network Configuration* and disable "Shared Memory", but make sure you leave one of the others on so SQL Server can communicate **somehow**:
