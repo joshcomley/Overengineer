@@ -1,7 +1,7 @@
 ---
 layout: blog
 category: blog
-published: false
+published: true
 title: >-
   VS Code: How to set a keyboard shortcut to focus the active file in file
   explorer
