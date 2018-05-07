@@ -1,12 +1,10 @@
 ---
 layout: blog
 category: blog
-published: false
+published: true
 title: >-
   Fixing "Unable to get repository signature information" on "dotnet pack" or
   "dotnet restore"
-splash: ''
-tags: ''
 ---
 I ran into an odd problem today whereby all of a sudden the `dotnet restore` command (also a problem if you call `dotnet pack`) failed with the following errors:
 
