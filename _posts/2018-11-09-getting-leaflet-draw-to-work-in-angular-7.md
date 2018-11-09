@@ -1,7 +1,7 @@
 ---
 layout: blog
 category: blog
-published: false
+published: true
 title: Getting leaflet-draw to work in Angular 7
 ---
 ## Issue
