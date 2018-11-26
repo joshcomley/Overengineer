@@ -1,7 +1,7 @@
 ---
 layout: blog
 category: blog
-published: false
+published: true
 title: Get list of installed programs in Windows 10
 ---
 Having found the `WMIC` method does not produce a complete list (for example, I couldn't see `VLC` with the `WMIC` output), this `PowerShell` script seems to do the job:
