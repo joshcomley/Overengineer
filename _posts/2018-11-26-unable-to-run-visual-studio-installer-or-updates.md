@@ -1,7 +1,7 @@
 ---
 layout: blog
 category: blog
-published: false
+published: true
 title: Unable to run Visual Studio installer or updates
 ---
 Both my laptop and my PC suddenly started crashing when opening Visual Studio projects, and the Visual Studio installer would not properly run on either machine.
